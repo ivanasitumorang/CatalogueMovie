@@ -27,7 +27,7 @@ import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.activities.MovieDetailActivity;
 import azuka.com.cataloguemovie.adapters.MoviesAdapter;
 import azuka.com.cataloguemovie.constants.Strings;
-import azuka.com.cataloguemovie.helpers.RecyclerViewItemClickHelper;
+import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
 import azuka.com.cataloguemovie.models.ApiResponse;
 import azuka.com.cataloguemovie.models.Movie;
 import azuka.com.cataloguemovie.services.ApiService;
@@ -39,13 +39,12 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchMovieFragment extends Fragment implements View.OnClickListener {
+public class SearchMovieFragment extends Fragment implements View.OnClickListener, RecyclerViewClickListener {
     private ApiService apiService;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
-    private Button btnSearch;
     private EditText etSearch;
 
     public SearchMovieFragment() {
@@ -69,15 +68,13 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
         progressBar = view.findViewById(R.id.pb_loading);
         recyclerView = view.findViewById(R.id.recycler_view);
         etSearch = view.findViewById(R.id.et_search);
-        btnSearch = view.findViewById(R.id.btn_search);
+        Button btnSearch = view.findViewById(R.id.btn_search);
         setView();
-        moviesAdapter = new MoviesAdapter(getContext());
+        moviesAdapter = new MoviesAdapter(getContext(), this);
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE
-                        | event.getAction() == KeyEvent.ACTION_DOWN
-                        | event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
                     searchMovie(v.getText().toString());
                 }
                 return false;
@@ -95,7 +92,6 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
                     movieList = response.body().getResults();
                     moviesAdapter.setMovies(movieList);
                     recyclerView.setAdapter(moviesAdapter);
-                    onItemClick();
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -128,15 +124,10 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void onItemClick(){
-        RecyclerViewItemClickHelper.addTo(recyclerView).setOnItemClickListener(new RecyclerViewItemClickHelper.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //showSelectedItem(movieList.get(position));
-                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(Strings.MOVIE_ID, movieList.get(position).getMovieId());
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onItemClickListener(Movie movie) {
+        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
+        startActivity(intent);
     }
 }

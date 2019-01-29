@@ -16,8 +16,8 @@
         android:background="@drawable/bg_oval_gray"
         android:paddingTop="@dimen/item_margin"
         android:paddingBottom="@dimen/item_margin"
-        android:paddingLeft="@dimen/horizontal_margin"
-        android:paddingRight="@dimen/horizontal_margin"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
         android:textColor="@color/colorBlack"/>
 
 </RelativeLayout>

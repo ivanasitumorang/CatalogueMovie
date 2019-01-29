@@ -22,7 +22,7 @@ import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.activities.MovieDetailActivity;
 import azuka.com.cataloguemovie.adapters.MoviesAdapter;
 import azuka.com.cataloguemovie.constants.Strings;
-import azuka.com.cataloguemovie.helpers.RecyclerViewItemClickHelper;
+import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
 import azuka.com.cataloguemovie.models.ApiResponse;
 import azuka.com.cataloguemovie.models.Movie;
 import azuka.com.cataloguemovie.services.ApiService;
@@ -34,7 +34,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NowPlayingFragment extends Fragment {
+public class NowPlayingFragment extends Fragment implements RecyclerViewClickListener {
     private ApiService apiService;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -60,7 +60,7 @@ public class NowPlayingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setView(view);
-        moviesAdapter = new MoviesAdapter(getContext());
+        moviesAdapter = new MoviesAdapter(getContext(), this);
         loadMovies();
     }
 
@@ -80,7 +80,6 @@ public class NowPlayingFragment extends Fragment {
                     movieList = response.body().getResults();
                     moviesAdapter.setMovies(movieList);
                     recyclerView.setAdapter(moviesAdapter);
-                    onItemClick();
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -94,16 +93,10 @@ public class NowPlayingFragment extends Fragment {
         });
     }
 
-    private void onItemClick(){
-        RecyclerViewItemClickHelper.addTo(recyclerView).setOnItemClickListener(new RecyclerViewItemClickHelper.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //showSelectedItem(movieList.get(position));
-                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(Strings.MOVIE_ID, movieList.get(position).getMovieId());
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onItemClickListener(Movie movie) {
+        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
+        startActivity(intent);
     }
-
 }

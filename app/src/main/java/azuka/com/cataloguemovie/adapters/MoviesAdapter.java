@@ -17,6 +17,7 @@ import java.util.List;
 
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
+import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
 import azuka.com.cataloguemovie.models.Movie;
 
 /**
@@ -24,11 +25,13 @@ import azuka.com.cataloguemovie.models.Movie;
  */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
+    private RecyclerViewClickListener listener;
     private List<Movie> movieList;
     private Context context;
 
-    public MoviesAdapter(Context context) {
+    public MoviesAdapter(Context context, RecyclerViewClickListener listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     public void setMovies(List<Movie> movieList) {
@@ -64,15 +67,22 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         return count;
     }
 
-    class MoviesViewHolder extends RecyclerView.ViewHolder {
+    class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle, tvOverview;
         ImageView ivThumb;
 
         public MoviesViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvOverview = itemView.findViewById(R.id.tv_overview);
             ivThumb = itemView.findViewById(R.id.iv_thumb);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (listener == null) return;
+            listener.onItemClickListener(movieList.get(getAdapterPosition()));
         }
     }
 }

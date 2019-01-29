@@ -3,9 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/item_margin"
     app:cardCornerRadius="@dimen/corner_radius_medium"
-    android:layout_marginBottom="@dimen/item_margin">
+    android:layout_marginBottom="@dimen/item_margin"
+    android:foreground="@drawable/ripple_effect"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +31,10 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/Text.Title"
                 android:padding="@dimen/item_margin"
                 android:textColor="@color/title_item"
-                android:text="-"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                tools:text="Movie Title"/>
 
             <View
                 android:layout_width="match_parent"
@@ -42,11 +43,10 @@
 
             <TextView
                 android:id="@+id/tv_overview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/Text.Description"
                 android:maxLines="2"
                 android:padding="@dimen/item_margin"
-                android:text="-"/>
+                tools:text="Movie Description"/>
 
         </LinearLayout>
 

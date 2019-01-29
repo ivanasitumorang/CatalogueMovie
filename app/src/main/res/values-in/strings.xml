@@ -6,6 +6,7 @@
     <string name="up_coming">Akan Datang</string>
     <string name="search_movie">Pencarian Film</string>
     <string name="detail_movie">Detail Film</string>
+    <string name="favorite">Favorit</string>
 
     <!-- Menu -->
     <string name="change_language">Ganti Bahasa</string>
