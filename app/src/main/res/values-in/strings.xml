@@ -14,7 +14,9 @@
     <!-- Hint -->
     <string name="hint_search">Cari Judul Film</string>
     <string name="hint_fill_form">Silakan isi form</string>
-    <string name="hint_no_internet">No Internet Connection</string>
+    <string name="hint_no_internet">Tidak ada koneksi internet</string>
+    <string name="hint_added_to_favorite">Ditambahkan Ke Favorit</string>
+    <string name="hint_removed_from_favorite">Dihapus Dari Favorit</string>
 
     <!-- Detail -->
     <string name="rating">Penilaian</string>

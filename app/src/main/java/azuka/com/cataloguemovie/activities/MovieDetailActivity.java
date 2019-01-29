@@ -5,10 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -31,7 +34,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private ImageView ivPoster;
     private TextView tvTitle, tvTagline, tvRating, tvDuration, tvLanguage, tvReleaseDate, tvOverview;
-    private RecyclerView rvGenre;
     private ApiService apiService;
     private List<Genre> genres;
     private ProgressBar progressBar;
@@ -62,7 +64,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvReleaseDate = findViewById(R.id.tv_release_date);
         tvOverview = findViewById(R.id.tv_overview);
         progressBar = findViewById(R.id.progress_bar);
-        rvGenre = findViewById(R.id.rv_genre);
+        RecyclerView rvGenre = findViewById(R.id.rv_genre);
 
         genreAdapter = new GenreAdapter(getApplicationContext());
         rvGenre.setAdapter(genreAdapter);
@@ -118,5 +120,35 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvOverview.setText(movie.getOverview());
         toolbar.setTitle(movie.getTitle());
         genreAdapter.setGenre(genres);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_favorite, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.btn_fav){
+            toogleFavorite(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void toogleFavorite(MenuItem item){
+        if (item.getIcon().getConstantState().equals(getDrawable(R.drawable.ic_heart_outline).getConstantState())){
+            item.setIcon(getDrawable(R.drawable.ic_heart_filled));
+            showToast(getString(R.string.hint_added_to_favorite));
+        } else {
+            item.setIcon(getDrawable(R.drawable.ic_heart_outline));
+            showToast(getString(R.string.hint_removed_from_favorite));
+        }
+    }
+
+    private void showToast(String text){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }

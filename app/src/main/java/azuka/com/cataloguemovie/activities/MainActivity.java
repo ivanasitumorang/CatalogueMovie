@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import azuka.com.cataloguemovie.R;
+import azuka.com.cataloguemovie.fragments.FavoriteFragment;
 import azuka.com.cataloguemovie.fragments.NowPlayingFragment;
 import azuka.com.cataloguemovie.fragments.SearchMovieFragment;
 import azuka.com.cataloguemovie.fragments.UpComingFragment;
@@ -27,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+    }
+
+    @Override
+    protected void onStart() {
         loadFragment(new NowPlayingFragment());
+        super.onStart();
     }
 
     private void initView(){
@@ -66,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_search:
                     toolbar.setTitle(R.string.search_movie);
                     fragment = new SearchMovieFragment();
+                    loadFragment(fragment);
+                    return true;
+
+                case R.id.nav_fav:
+                    toolbar.setTitle(R.string.favorite);
+                    fragment = new FavoriteFragment();
                     loadFragment(fragment);
                     return true;
             }
