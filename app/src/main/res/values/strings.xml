@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Catalogue Movie</string>
+
+    <!-- Navigation -->
+    <string name="now_playing">Now Playing</string>
+    <string name="up_coming">Up Coming</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="detail_movie">Detail Movie</string>
+
+    <!-- Menu -->
+    <string name="change_language">Change Language</string>
+
+    <!-- Hint -->
+    <string name="hint_search">Search Movie Title</string>
+    <string name="hint_fill_form">Please fill the form</string>
+    <string name="hint_no_internet">Tidak ada koneksi internet</string>
+
+    <!-- Detail -->
+    <string name="rating">Rating</string>
+    <string name="duration">Duration</string>
+    <string name="language">Language</string>
+    <string name="genres">Genres</string>
+    <string name="release_date">Release Date</string>
+    <string name="overview">Overview</string>
+
+
+</resources>

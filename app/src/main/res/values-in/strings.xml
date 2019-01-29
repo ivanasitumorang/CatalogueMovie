@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Katalog Film</string>
+
+    <!-- Navigation -->
+    <string name="now_playing">Sedang Tayang</string>
+    <string name="up_coming">Akan Datang</string>
+    <string name="search_movie">Pencarian Film</string>
+    <string name="detail_movie">Detail Film</string>
+
+    <!-- Menu -->
+    <string name="change_language">Ganti Bahasa</string>
+
+    <!-- Hint -->
+    <string name="hint_search">Cari Judul Film</string>
+    <string name="hint_fill_form">Silakan isi form</string>
+    <string name="hint_no_internet">No Internet Connection</string>
+
+    <!-- Detail -->
+    <string name="rating">Penilaian</string>
+    <string name="duration">Durasi</string>
+    <string name="language">Bahasa</string>
+    <string name="genres">Genres</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="overview">Ikhtisar</string>
+</resources>
