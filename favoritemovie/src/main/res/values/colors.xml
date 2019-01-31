@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/colorPurple</color>
-    <color name="colorPrimaryDark">@color/colorDarkPurple</color>
-    <color name="colorAccent">@color/colorAmber</color>
+    <color name="colorPrimary">@color/colorCyan</color>
+    <color name="colorPrimaryDark">@color/colorDarkCyan</color>
+    <color name="colorAccent">@color/colorBrown</color>
 
     <color name="colorTextDefault">@color/colorBlack</color>
     <color name="colorTextWhite">@color/colorWhite</color>
@@ -10,13 +10,13 @@
     <color name="colorTextHint">@color/colorLightGray</color>
 
     <!-- Navigation -->
-    <color name="nav_bg">@color/colorPurple</color>
+    <color name="nav_bg">@color/colorCyan</color>
     <color name="nav_title">@color/colorWhite</color>
-    <color name="nav_icon">@color/colorAmber</color>
+    <color name="nav_icon">@color/colorBrown</color>
 
     <!-- Item Movie -->
-    <color name="bg_item">@color/colorLightPurple</color>
-    <color name="title_item">@color/colorDarkPurple</color>
+    <color name="bg_item">@color/colorLightCyan</color>
+    <color name="title_item">@color/colorDarkCyan</color>
 
     <!-- Colors -->
     <color name="transparent">#00FFFFFF</color>
@@ -26,8 +26,8 @@
     <color name="colorDarkGray">#707070</color>
     <color name="colorBlack">#000000</color>
 
-    <color name="colorDarkPurple">#7B1FA2</color>
-    <color name="colorLightPurple">#E1BEE7</color>
-    <color name="colorPurple">#9C27B0</color>
-    <color name="colorAmber">#FFC107</color>
+    <color name="colorDarkCyan">#0097A7</color>
+    <color name="colorLightCyan">#B2EBF2</color>
+    <color name="colorCyan">#00BCD4</color>
+    <color name="colorBrown">#795548</color>
 </resources>

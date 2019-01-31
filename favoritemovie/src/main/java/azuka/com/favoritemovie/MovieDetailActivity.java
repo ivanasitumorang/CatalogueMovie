@@ -51,7 +51,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_overview)
     TextView tvOverview;
 
-    //private FavoriteMovieHelper helper;
     private ActionBar toolbar;
     private Movie movie;
     private Boolean isFavorite = false;
@@ -131,7 +130,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setView(Movie movie) {
-        Glide.with(getApplicationContext())
+        Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.no_picture).error(R.drawable.no_picture))
                 .load(Strings.POSTER_BIG + movie.getPosterPath())
                 .into(ivPoster);
