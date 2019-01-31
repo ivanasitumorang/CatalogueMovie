@@ -25,15 +25,15 @@
                 android:id="@+id/et_search"
                 style="@style/Text"
                 android:layout_width="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="5"
                 android:background="@color/transparent"
                 android:hint="@string/hint_search"
-                android:inputType="text"
                 android:imeOptions="actionSearch"
-                android:maxLines="1"
+                android:inputType="text"
                 android:lines="1"
-                android:padding="@dimen/item_margin"
-                android:layout_gravity="center"/>
+                android:maxLines="1"
+                android:padding="@dimen/item_margin" />
 
             <Button
                 android:id="@+id/btn_search"
@@ -41,7 +41,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_search"
-                android:foreground="@drawable/ripple_effect_btn"/>
+                android:foreground="@drawable/ripple_effect_btn" />
 
         </LinearLayout>
 

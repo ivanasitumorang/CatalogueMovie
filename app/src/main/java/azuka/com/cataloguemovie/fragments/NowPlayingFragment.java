@@ -35,13 +35,16 @@ import retrofit2.Response;
 
 public class NowPlayingFragment extends Fragment implements RecyclerViewClickListener {
 
-    @BindView(R.id.pb_loading) ProgressBar progressBar;
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.pb_loading)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
     private ApiService apiService;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
 
-    public NowPlayingFragment() { }
+    public NowPlayingFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,18 +63,18 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
         loadMovies();
     }
 
-    private void setInit(){
+    private void setInit() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         moviesAdapter = new MoviesAdapter(getContext(), this);
     }
 
-    private void loadMovies(){
+    private void loadMovies() {
         progressBar.setVisibility(View.VISIBLE);
         apiService.getNowPlaying(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE).enqueue(new Callback<ApiResponse<List<Movie>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Movie>>> call, Response<ApiResponse<List<Movie>>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     movieList = response.body().getResults();
                     moviesAdapter.setMovies(movieList);
                     recyclerView.setAdapter(moviesAdapter);
@@ -95,7 +98,7 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
         startActivity(intent);
     }
 
-    private void showToast(String msg){
+    private void showToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

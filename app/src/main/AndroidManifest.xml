@@ -3,10 +3,13 @@
     package="azuka.com.cataloguemovie">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="azuka.com.cataloguemovie.READ_DATABASE"
-        android:protectionLevel="normal"/>
-    <permission android:name="azuka.com.cataloguemovie.WRITE_DATABASE"
-        android:protectionLevel="normal"/>
+
+    <permission
+        android:name="azuka.com.cataloguemovie.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="azuka.com.cataloguemovie.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -15,16 +18,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MovieDetailActivity"/>
+        <activity android:name=".activities.MovieDetailActivity" />
 
         <provider
-            android:authorities="azuka.com.cataloguemovie"
             android:name=".provider.FavoriteProvider"
+            android:authorities="azuka.com.cataloguemovie"
             android:exported="true"
             android:readPermission="azuka.com.cataloguemovie.READ_DATABASE"
             android:writePermission="azuka.com.cataloguemovie.WRITE_DATABASE" />
 
-        <activity android:name=".activities.MainActivity"
+        <activity
+            android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

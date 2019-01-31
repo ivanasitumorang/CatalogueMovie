@@ -31,30 +31,39 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.CONTENT_URI;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.IS_FAVORITE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.MOVIE_ID;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.ORIGINAL_LANGUAGE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.ORIGINAL_TITLE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.OVERVIEW;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.POSTER_PATH;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.RELEASE_DATE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.RUNTIME;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.TAGLINE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.VOTE_AVERAGE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.CONTENT_URI;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.POSTER_PATH;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.RELEASE_DATE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.RUNTIME;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.TAGLINE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.VOTE_AVERAGE;
 
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    @BindView(R.id.iv_poster) ImageView ivPoster;
-    @BindView(R.id.tv_title) TextView tvTitle;
-    @BindView(R.id.tv_tagline) TextView tvTagline;
-    @BindView(R.id.tv_rating) TextView tvRating;
-    @BindView(R.id.tv_duration) TextView tvDuration;
-    @BindView(R.id.tv_language) TextView tvLanguage;
-    @BindView(R.id.tv_release_date) TextView tvReleaseDate;
-    @BindView(R.id.tv_overview) TextView tvOverview;
-    @BindView(R.id.progress_bar) ProgressBar progressBar;
+    @BindView(R.id.iv_poster)
+    ImageView ivPoster;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_tagline)
+    TextView tvTagline;
+    @BindView(R.id.tv_rating)
+    TextView tvRating;
+    @BindView(R.id.tv_duration)
+    TextView tvDuration;
+    @BindView(R.id.tv_language)
+    TextView tvLanguage;
+    @BindView(R.id.tv_release_date)
+    TextView tvReleaseDate;
+    @BindView(R.id.tv_overview)
+    TextView tvOverview;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     private ApiService apiService;
     private ActionBar toolbar;
@@ -120,7 +129,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (isFavorite){
+        if (isFavorite) {
             menu.findItem(R.id.btn_fav).setIcon(R.drawable.ic_heart_filled);
         } else {
             menu.findItem(R.id.btn_fav).setIcon(R.drawable.ic_heart_outline);
@@ -137,8 +146,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void toggleFavorite(MenuItem item){
-        if (isFavorite){
+    private void toggleFavorite(MenuItem item) {
+        if (isFavorite) {
             removeFromFavorite();
             showToast(getString(R.string.hint_removed_from_favorite));
             isFavorite = false;
@@ -154,27 +163,27 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    private boolean checkFavorite(){
+    private boolean checkFavorite() {
         uriDetailMovie = Uri.parse(CONTENT_URI + "/" + movieId);
         Cursor cursor = getContentResolver().query(uriDetailMovie, null, null, null, null);
-        if (cursor != null){
+        if (cursor != null) {
             return cursor.getCount() > 0;
         }
         return false;
     }
 
-    private void loadDetailMovie(){
-        if (movieId != null){
+    private void loadDetailMovie() {
+        if (movieId != null) {
             loadDataOnline();
         } else loadDataLocal();
     }
 
-    private void loadDataLocal(){
+    private void loadDataLocal() {
         Uri uri = getIntent().getData();
         if (uri != null) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-            if (cursor != null){
-                if(cursor.moveToFirst()) movie = new Movie(cursor);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) movie = new Movie(cursor);
                 cursor.close();
                 setView(movie);
             }
@@ -216,7 +225,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         toolbar.setTitle(movie.getTitle());
     }
 
-    private void saveToFavorite(){
+    private void saveToFavorite() {
         ContentValues values = new ContentValues();
         values.put(MOVIE_ID, movieFromServer.getMovieId());
         values.put(POSTER_PATH, movieFromServer.getPosterPath());
@@ -257,8 +266,8 @@ public class MovieDetailActivity extends AppCompatActivity {
          */
     }
 
-    private void removeFromFavorite(){
-        if (getIntent().getData() != null){
+    private void removeFromFavorite() {
+        if (getIntent().getData() != null) {
             getContentResolver().delete(getIntent().getData(), null, null);
         } else {
             getContentResolver().delete(uriDetailMovie, null, null);

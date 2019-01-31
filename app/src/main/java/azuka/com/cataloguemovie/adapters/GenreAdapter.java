@@ -22,6 +22,10 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
     private Genre genre;
     private Context context;
 
+    public GenreAdapter(Context context) {
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,10 +48,6 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.GenreViewHol
             Log.w("Eror: ", e.getMessage());
         }
         return count;
-    }
-
-    public GenreAdapter(Context context) {
-        this.context = context;
     }
 
     public void setGenre(List<Genre> genres) {

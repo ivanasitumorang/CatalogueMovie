@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import azuka.com.cataloguemovie.models.Movie;
 
 import static android.provider.BaseColumns._ID;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.IS_FAVORITE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.MOVIE_ID;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.ORIGINAL_LANGUAGE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.ORIGINAL_TITLE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.OVERVIEW;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.POSTER_PATH;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.RELEASE_DATE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.RUNTIME;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.TAGLINE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.MovieColumns.VOTE_AVERAGE;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.TABLE_FAV_MOVIE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.POSTER_PATH;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.RELEASE_DATE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.RUNTIME;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.TAGLINE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.VOTE_AVERAGE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.TABLE_FAV_MOVIE;
 
 /**
  * Created by Ivana Situmorang on 1/29/2019.
@@ -80,8 +80,8 @@ public class FavoriteMovieHelper {
         return arrayList;
     }
 
-    public long insert(Movie movie){
-        ContentValues values =  new ContentValues();
+    public long insert(Movie movie) {
+        ContentValues values = new ContentValues();
         values.put(MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
@@ -96,8 +96,8 @@ public class FavoriteMovieHelper {
         return database.insert(TABLE_NAME, null, values);
     }
 
-    public int update(Movie movie){
-        ContentValues values =  new ContentValues();
+    public int update(Movie movie) {
+        ContentValues values = new ContentValues();
         values.put(MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
@@ -111,11 +111,11 @@ public class FavoriteMovieHelper {
         return database.update(TABLE_NAME, values, MOVIE_ID + "= '" + movie.getMovieId() + "'", null);
     }
 
-    public int delete(int movieId){
-        return database.delete(TABLE_NAME, MOVIE_ID + " = '"+movieId+"'", null);
+    public int delete(int movieId) {
+        return database.delete(TABLE_NAME, MOVIE_ID + " = '" + movieId + "'", null);
     }
 
-    public Cursor queryByIdProvider(String movieId){
+    public Cursor queryByIdProvider(String movieId) {
         return database.query(TABLE_NAME,
                 null,
                 MOVIE_ID + " = ?",
@@ -126,7 +126,7 @@ public class FavoriteMovieHelper {
                 null);
     }
 
-    public Cursor queryProvider(){
+    public Cursor queryProvider() {
         return database.query(TABLE_NAME,
                 null,
                 IS_FAVORITE + " = ?",
@@ -136,15 +136,15 @@ public class FavoriteMovieHelper {
                 MOVIE_ID + " DESC");
     }
 
-    public long insertProvider(ContentValues values){
-        return database.insert(TABLE_NAME,null, values);
+    public long insertProvider(ContentValues values) {
+        return database.insert(TABLE_NAME, null, values);
     }
 
     public int updateProvider(String movieId, ContentValues values) {
         return database.update(TABLE_NAME, values, MOVIE_ID + " = ?", new String[]{movieId});
     }
 
-    public int deleteProvider(String movieId){
-        return database.delete(TABLE_NAME,MOVIE_ID + " = ?", new String[]{movieId});
+    public int deleteProvider(String movieId) {
+        return database.delete(TABLE_NAME, MOVIE_ID + " = ?", new String[]{movieId});
     }
 }

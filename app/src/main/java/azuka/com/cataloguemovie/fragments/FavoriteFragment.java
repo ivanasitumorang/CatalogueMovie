@@ -27,15 +27,18 @@ import azuka.com.cataloguemovie.models.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.CONTENT_URI;
+import static azuka.com.cataloguemovie.database.DatabaseContract.CONTENT_URI;
 
 public class FavoriteFragment extends Fragment implements RecyclerViewClickListener {
 
-    @BindView(R.id.pb_loading) ProgressBar progressBar;
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.pb_loading)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
     private FavoriteAdapter favoriteAdapter;
 
-    public FavoriteFragment() { }
+    public FavoriteFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +54,34 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
         setInit();
     }
 
-    private void setInit(){
+    private void setInit() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         favoriteAdapter = new FavoriteAdapter(getContext(), this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadMovies();
+    }
+
+    @Override
+    public void onItemClickListener(Movie movie) {
+        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
+        Uri uri = Uri.parse(CONTENT_URI + "/" + movie.getMovieId());
+        intent.setData(uri);
+        startActivity(intent);
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadMovies() {
+        progressBar.setVisibility(View.VISIBLE);
+        new LoadFavoriteAsync().execute();
     }
 
     private class LoadFavoriteAsync extends AsyncTask<Void, Void, Cursor> {
@@ -67,7 +94,7 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
 
         @Override
         protected Cursor doInBackground(Void... voids) {
-            return getContext().getContentResolver().query(CONTENT_URI,null,null,null,null);
+            return getContext().getContentResolver().query(CONTENT_URI, null, null, null, null);
         }
 
         @Override
@@ -86,34 +113,10 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
             } catch (Exception e) {
                 Log.w("ERROR", e.getMessage());
             }
-            if (count == 0){
+            if (count == 0) {
                 showToast(getString(R.string.hint_no_favorite));
             }
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadMovies();
-    }
-
-    @Override
-    public void onItemClickListener(Movie movie) {
-        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-        intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
-        Uri uri = Uri.parse(CONTENT_URI + "/" + movie.getMovieId());
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
-    private void showToast(String msg){
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    private void loadMovies(){
-        progressBar.setVisibility(View.VISIBLE);
-        new LoadFavoriteAsync().execute();
     }
 
 }

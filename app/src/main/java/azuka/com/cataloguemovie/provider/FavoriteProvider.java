@@ -10,9 +10,9 @@ import android.support.annotation.Nullable;
 
 import azuka.com.cataloguemovie.helpers.FavoriteMovieHelper;
 
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.AUTHORITY;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.CONTENT_URI;
-import static azuka.com.cataloguemovie.helpers.DatabaseContract.TABLE_FAV_MOVIE;
+import static azuka.com.cataloguemovie.database.DatabaseContract.AUTHORITY;
+import static azuka.com.cataloguemovie.database.DatabaseContract.CONTENT_URI;
+import static azuka.com.cataloguemovie.database.DatabaseContract.TABLE_FAV_MOVIE;
 
 /**
  * Created by Ivana Situmorang on 1/29/2019.
@@ -41,7 +41,7 @@ public class FavoriteProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         Cursor cursor;
-        switch(uriMatcher.match(uri)){
+        switch (uriMatcher.match(uri)) {
             case MOVIE:
                 cursor = favoriteMovieHelper.queryProvider();
                 break;
@@ -53,7 +53,7 @@ public class FavoriteProvider extends ContentProvider {
                 break;
         }
 
-        if (cursor != null){
+        if (cursor != null) {
             cursor.setNotificationUri(getContext().getContentResolver(), uri);
         }
 
@@ -69,9 +69,9 @@ public class FavoriteProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        long added ;
+        long added;
 
-        switch (uriMatcher.match(uri)){
+        switch (uriMatcher.match(uri)) {
             case MOVIE:
                 added = favoriteMovieHelper.insertProvider(values);
                 break;
@@ -91,7 +91,7 @@ public class FavoriteProvider extends ContentProvider {
         int deleted;
         switch (uriMatcher.match(uri)) {
             case ID:
-                deleted =  favoriteMovieHelper.deleteProvider(uri.getLastPathSegment());
+                deleted = favoriteMovieHelper.deleteProvider(uri.getLastPathSegment());
                 break;
             default:
                 deleted = 0;
@@ -107,10 +107,10 @@ public class FavoriteProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        int updated ;
+        int updated;
         switch (uriMatcher.match(uri)) {
             case ID:
-                updated =  favoriteMovieHelper.updateProvider(uri.getLastPathSegment(), values);
+                updated = favoriteMovieHelper.updateProvider(uri.getLastPathSegment(), values);
                 break;
             default:
                 updated = 0;

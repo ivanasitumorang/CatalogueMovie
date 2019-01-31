@@ -21,39 +21,15 @@ import azuka.com.cataloguemovie.fragments.UpComingFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.btm_nav) BottomNavigationView bottomNavigationView;
+    @BindView(R.id.btm_nav)
+    BottomNavigationView bottomNavigationView;
     private ActionBar toolbar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        initView();
-        loadFragment(new NowPlayingFragment());
-    }
-
-    private void initView(){
-        if (getSupportActionBar()!=null){
-            toolbar = getSupportActionBar();
-            bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-            toolbar.setTitle(R.string.now_playing);
-        }
-    }
-
-    private void loadFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
-        fragmentTransaction.commit();
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_now_playing:
                     Fragment fragment = new NowPlayingFragment();
                     toolbar.setTitle(getString(R.string.now_playing));
@@ -83,6 +59,30 @@ public class MainActivity extends AppCompatActivity{
     };
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        initView();
+        loadFragment(new NowPlayingFragment());
+    }
+
+    private void initView() {
+        if (getSupportActionBar() != null) {
+            toolbar = getSupportActionBar();
+            bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+            toolbar.setTitle(R.string.now_playing);
+        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return super.onCreateOptionsMenu(menu);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.act_change_language){
+        if (item.getItemId() == R.id.act_change_language) {
             invalidateOptionsMenu();
             startActivity(new Intent(Settings.ACTION_LOCALE_SETTINGS));
         }

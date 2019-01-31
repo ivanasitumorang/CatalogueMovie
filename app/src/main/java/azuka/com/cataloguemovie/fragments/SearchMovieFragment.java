@@ -40,15 +40,20 @@ import retrofit2.Response;
 
 public class SearchMovieFragment extends Fragment implements View.OnClickListener, RecyclerViewClickListener {
 
-    @BindView(R.id.pb_loading) ProgressBar progressBar;
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.et_search) EditText etSearch;
-    @BindView(R.id.btn_search) Button btnSearch;
+    @BindView(R.id.pb_loading)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.btn_search)
+    Button btnSearch;
     private ApiService apiService;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
 
-    public SearchMovieFragment() { }
+    public SearchMovieFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,14 +70,14 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
         setInit();
     }
 
-    private void setInit(){
+    private void setInit() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         moviesAdapter = new MoviesAdapter(getContext(), this);
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     searchMovie(v.getText().toString());
                 }
                 return false;
@@ -81,7 +86,7 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
         btnSearch.setOnClickListener(this);
     }
 
-    private void searchMovie(String title){
+    private void searchMovie(String title) {
         progressBar.setVisibility(View.VISIBLE);
         apiService.search(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE, title).enqueue(new Callback<ApiResponse<List<Movie>>>() {
             @Override
@@ -105,10 +110,10 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_search:
                 String query = etSearch.getText().toString();
-                if (query.isEmpty()){
+                if (query.isEmpty()) {
                     etSearch.setError(getString(R.string.hint_fill_form));
                 } else {
                     searchMovie(query);

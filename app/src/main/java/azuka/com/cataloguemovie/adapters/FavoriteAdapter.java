@@ -63,8 +63,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return cursor.getCount();
     }
 
-    private Movie getItem(int position){
-        if (!cursor.moveToPosition(position)){
+    private Movie getItem(int position) {
+        if (!cursor.moveToPosition(position)) {
             throw new IllegalStateException("Position Invalid");
         }
         return new Movie(cursor);
