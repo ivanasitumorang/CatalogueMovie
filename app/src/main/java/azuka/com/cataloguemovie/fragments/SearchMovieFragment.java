@@ -32,44 +32,42 @@ import azuka.com.cataloguemovie.models.ApiResponse;
 import azuka.com.cataloguemovie.models.Movie;
 import azuka.com.cataloguemovie.services.ApiService;
 import azuka.com.cataloguemovie.services.ApiUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SearchMovieFragment extends Fragment implements View.OnClickListener, RecyclerViewClickListener {
+
+    @BindView(R.id.pb_loading) ProgressBar progressBar;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.et_search) EditText etSearch;
+    @BindView(R.id.btn_search) Button btnSearch;
     private ApiService apiService;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
-    private EditText etSearch;
 
-    public SearchMovieFragment() {
-        // Required empty public constructor
-    }
-
+    public SearchMovieFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         apiService = ApiUtils.getMovieApi();
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_movie, container, false);
+        View view = inflater.inflate(R.layout.fragment_search_movie, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = view.findViewById(R.id.pb_loading);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        etSearch = view.findViewById(R.id.et_search);
-        Button btnSearch = view.findViewById(R.id.btn_search);
-        setView();
+        setInit();
+    }
+
+    private void setInit(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         moviesAdapter = new MoviesAdapter(getContext(), this);
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -103,11 +101,6 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
                 Toast.makeText(getContext(), getString(R.string.hint_no_internet), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void setView(){
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
     }
 
     @Override

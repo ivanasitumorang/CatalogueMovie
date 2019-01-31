@@ -17,6 +17,7 @@
     <string name="hint_no_internet">Tidak ada koneksi internet</string>
     <string name="hint_added_to_favorite">Ditambahkan Ke Favorit</string>
     <string name="hint_removed_from_favorite">Dihapus Dari Favorit</string>
+    <string name="hint_no_favorite">Film Favorit Tidak Ditemukan</string>
 
     <!-- Detail -->
     <string name="rating">Penilaian</string>

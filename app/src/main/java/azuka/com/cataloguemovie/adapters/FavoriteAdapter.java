@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,20 +23,16 @@ import azuka.com.cataloguemovie.models.Movie;
 /**
  * Created by Ivana Situmorang on 1/24/2019.
  */
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
 
     private RecyclerViewClickListener listener;
     private List<Movie> movieList;
     private Context context;
     private Cursor cursor;
 
-    public MoviesAdapter(Context context, RecyclerViewClickListener listener) {
+    public FavoriteAdapter(Context context, RecyclerViewClickListener listener) {
         this.context = context;
         this.listener = listener;
-    }
-
-    public void setMovies(List<Movie> movieList) {
-        this.movieList = movieList;
     }
 
     public void setMovies(Cursor cursor) {
@@ -46,14 +41,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     @NonNull
     @Override
-    public MoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
-        return new MoviesViewHolder(rootView);
+        return new FavoriteViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MoviesViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
+    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
+        Movie movie = getItem(position);
         holder.tvTitle.setText(movie.getTitle());
         holder.tvOverview.setText(movie.getOverview());
         Glide.with(context)
@@ -64,20 +59,22 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     @Override
     public int getItemCount() {
-        int count = 0;
-        try {
-            count = ((movieList.size() > 0) ? movieList.size() : 0);
-        } catch (Exception e) {
-            Log.w("Eror: ", e.getMessage());
-        }
-        return count;
+        if (cursor == null) return 0;
+        return cursor.getCount();
     }
 
-    class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private Movie getItem(int position){
+        if (!cursor.moveToPosition(position)){
+            throw new IllegalStateException("Position Invalid");
+        }
+        return new Movie(cursor);
+    }
+
+    class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle, tvOverview;
         ImageView ivThumb;
 
-        public MoviesViewHolder(View itemView) {
+        FavoriteViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             tvTitle = itemView.findViewById(R.id.tv_title);
@@ -88,7 +85,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         @Override
         public void onClick(View v) {
             if (listener == null) return;
-            listener.onItemClickListener(movieList.get(getAdapterPosition()));
+            listener.onItemClickListener(getItem(getAdapterPosition()));
         }
     }
 }

@@ -27,48 +27,44 @@ import azuka.com.cataloguemovie.models.ApiResponse;
 import azuka.com.cataloguemovie.models.Movie;
 import azuka.com.cataloguemovie.services.ApiService;
 import azuka.com.cataloguemovie.services.ApiUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NowPlayingFragment extends Fragment implements RecyclerViewClickListener {
+
+    @BindView(R.id.pb_loading) ProgressBar progressBar;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
     private ApiService apiService;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
 
-    public NowPlayingFragment() {
-        // Required empty public constructor
-    }
+    public NowPlayingFragment() { }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         apiService = ApiUtils.getMovieApi();
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_now_playing, container, false);
+        View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
         super.onViewCreated(view, savedInstanceState);
-        setView(view);
-        moviesAdapter = new MoviesAdapter(getContext(), this);
+        setInit();
         loadMovies();
     }
 
-    private void setView(View view){
-        progressBar = view.findViewById(R.id.pb_loading);
-        recyclerView = view.findViewById(R.id.recycler_view);
+    private void setInit(){
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
+        moviesAdapter = new MoviesAdapter(getContext(), this);
     }
 
     private void loadMovies(){
@@ -98,5 +94,9 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
         Intent intent = new Intent(getContext(), MovieDetailActivity.class);
         intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
         startActivity(intent);
+    }
+
+    private void showToast(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

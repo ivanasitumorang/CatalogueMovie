@@ -17,6 +17,7 @@
     <string name="hint_no_internet">No Internet Connection</string>
     <string name="hint_added_to_favorite">Added To Favorite</string>
     <string name="hint_removed_from_favorite">Removed From Favorite</string>
+    <string name="hint_no_favorite">No Favorite Movie(s) Found</string>
 
     <!-- Detail -->
     <string name="rating">Rating</string>
