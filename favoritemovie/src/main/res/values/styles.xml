@@ -8,4 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Text.Centered">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Text.Hint">
+        <item name="android:textColor">@color/colorTextHint</item>
+    </style>
+
+    <style name="Text.Title">
+        <item name="android:textColor">@color/colorTextDefault</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_big</item>
+    </style>
+
+    <style name="Text.Description">
+        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
 </resources>
