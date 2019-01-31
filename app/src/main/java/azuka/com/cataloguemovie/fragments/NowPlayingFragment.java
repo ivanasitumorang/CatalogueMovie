@@ -43,7 +43,6 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
 
     public NowPlayingFragment() { }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

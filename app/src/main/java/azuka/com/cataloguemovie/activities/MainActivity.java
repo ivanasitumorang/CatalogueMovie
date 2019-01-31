@@ -18,28 +18,26 @@ import azuka.com.cataloguemovie.fragments.FavoriteFragment;
 import azuka.com.cataloguemovie.fragments.NowPlayingFragment;
 import azuka.com.cataloguemovie.fragments.SearchMovieFragment;
 import azuka.com.cataloguemovie.fragments.UpComingFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
+    @BindView(R.id.btm_nav) BottomNavigationView bottomNavigationView;
     private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initView();
-    }
-
-    @Override
-    protected void onStart() {
         loadFragment(new NowPlayingFragment());
-        super.onStart();
     }
 
     private void initView(){
         if (getSupportActionBar()!=null){
             toolbar = getSupportActionBar();
-            BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav);
             bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
             toolbar.setTitle(R.string.now_playing);
         }
@@ -55,29 +53,28 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
             switch (item.getItemId()){
                 case R.id.nav_now_playing:
-                    toolbar.setTitle(R.string.now_playing);
-                    fragment = new NowPlayingFragment();
+                    Fragment fragment = new NowPlayingFragment();
+                    toolbar.setTitle(getString(R.string.now_playing));
                     loadFragment(fragment);
                     return true;
 
                 case R.id.nav_up_coming:
-                    toolbar.setTitle(R.string.up_coming);
                     fragment = new UpComingFragment();
+                    toolbar.setTitle(getString(R.string.up_coming));
                     loadFragment(fragment);
                     return true;
 
                 case R.id.nav_search:
-                    toolbar.setTitle(R.string.search_movie);
                     fragment = new SearchMovieFragment();
+                    toolbar.setTitle(getString(R.string.search_movie));
                     loadFragment(fragment);
                     return true;
 
                 case R.id.nav_fav:
-                    toolbar.setTitle(R.string.favorite);
                     fragment = new FavoriteFragment();
+                    toolbar.setTitle(getString(R.string.favorite));
                     loadFragment(fragment);
                     return true;
             }
