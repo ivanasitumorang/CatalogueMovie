@@ -21,7 +21,6 @@ import android.widget.Toast;
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.activities.MovieDetailActivity;
 import azuka.com.cataloguemovie.adapters.FavoriteAdapter;
-import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
 import azuka.com.cataloguemovie.models.Movie;
 import butterknife.BindView;
@@ -69,7 +68,6 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
     @Override
     public void onItemClickListener(Movie movie) {
         Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-        intent.putExtra(Strings.MOVIE_ID, movie.getMovieId());
         Uri uri = Uri.parse(CONTENT_URI + "/" + movie.getMovieId());
         intent.setData(uri);
         startActivity(intent);

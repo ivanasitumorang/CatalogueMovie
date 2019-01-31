@@ -20,6 +20,8 @@ import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
 import azuka.com.cataloguemovie.models.Movie;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Ivana Situmorang on 1/24/2019.
@@ -74,15 +76,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     }
 
     class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTitle, tvOverview;
-        ImageView ivThumb;
+        @BindView(R.id.tv_title) TextView tvTitle;
+        @BindView(R.id.tv_overview) TextView tvOverview;
+        @BindView(R.id.iv_thumb) ImageView ivThumb;
 
         public MoviesViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvOverview = itemView.findViewById(R.id.tv_overview);
-            ivThumb = itemView.findViewById(R.id.iv_thumb);
         }
 
         @Override

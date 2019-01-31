@@ -104,18 +104,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        /*
-        if (isFavorite){
-            saveToFavorite();
-        } else {
-            removeFromFavorite();
-        }
-         */
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
@@ -152,7 +140,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             showToast(getString(R.string.hint_removed_from_favorite));
             isFavorite = false;
         } else {
-            saveToFavorite();
+            saveToFavorite(movie);
             showToast(getString(R.string.hint_added_to_favorite));
             item.setIcon(R.drawable.ic_heart_outline);
             isFavorite = true;
@@ -164,7 +152,12 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private boolean checkFavorite() {
-        uriDetailMovie = Uri.parse(CONTENT_URI + "/" + movieId);
+        if (!loadDataLocal()) {
+            uriDetailMovie = Uri.parse(CONTENT_URI + "/" + movieId);
+        } else {
+            uriDetailMovie = Uri.parse(CONTENT_URI + "/" + movie.getMovieId());
+        }
+
         Cursor cursor = getContentResolver().query(uriDetailMovie, null, null, null, null);
         if (cursor != null) {
             return cursor.getCount() > 0;
@@ -178,16 +171,20 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else loadDataLocal();
     }
 
-    private void loadDataLocal() {
+    private boolean loadDataLocal() {
         Uri uri = getIntent().getData();
         if (uri != null) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {
-                if (cursor.moveToFirst()) movie = new Movie(cursor);
+                Movie temp = null;
+                if (cursor.moveToFirst()) temp = new Movie(cursor);
                 cursor.close();
-                setView(movie);
+                setView(temp);
+                movie = temp;
+                return true;
             }
         }
+        return false;
     }
 
     private void loadDataOnline() {
@@ -197,6 +194,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 if (response.isSuccessful()) {
                     movieFromServer = response.body();
+                    movie = movieFromServer;
                     setView(movieFromServer);
                 }
                 progressBar.setVisibility(View.GONE);
@@ -225,17 +223,17 @@ public class MovieDetailActivity extends AppCompatActivity {
         toolbar.setTitle(movie.getTitle());
     }
 
-    private void saveToFavorite() {
+    private void saveToFavorite(Movie movie) {
         ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movieFromServer.getMovieId());
-        values.put(POSTER_PATH, movieFromServer.getPosterPath());
-        values.put(ORIGINAL_TITLE, movieFromServer.getTitle());
-        values.put(OVERVIEW, movieFromServer.getOverview());
-        values.put(RELEASE_DATE, movieFromServer.getReleaseDate());
-        values.put(ORIGINAL_LANGUAGE, movieFromServer.getLanguage());
-        values.put(TAGLINE, movieFromServer.getTagline());
-        values.put(VOTE_AVERAGE, movieFromServer.getRating());
-        values.put(RUNTIME, movieFromServer.getDuration());
+        values.put(MOVIE_ID, movie.getMovieId());
+        values.put(POSTER_PATH, movie.getPosterPath());
+        values.put(ORIGINAL_TITLE, movie.getTitle());
+        values.put(OVERVIEW, movie.getOverview());
+        values.put(RELEASE_DATE, movie.getReleaseDate());
+        values.put(ORIGINAL_LANGUAGE, movie.getLanguage());
+        values.put(TAGLINE, movie.getTagline());
+        values.put(VOTE_AVERAGE, movie.getRating());
+        values.put(RUNTIME, movie.getDuration());
         values.put(IS_FAVORITE, Strings.YES);
         getContentResolver().insert(CONTENT_URI, values);
         /*
