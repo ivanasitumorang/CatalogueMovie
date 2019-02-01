@@ -39,6 +39,10 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
     public FavoriteFragment() {
     }
 
+    public static FavoriteFragment newInstance() {
+        return (FavoriteFragment) new FavoriteFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

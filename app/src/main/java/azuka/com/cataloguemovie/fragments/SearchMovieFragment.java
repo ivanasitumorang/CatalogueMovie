@@ -55,6 +55,10 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
     public SearchMovieFragment() {
     }
 
+    public static SearchMovieFragment newInstance() {
+        return (SearchMovieFragment) new SearchMovieFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

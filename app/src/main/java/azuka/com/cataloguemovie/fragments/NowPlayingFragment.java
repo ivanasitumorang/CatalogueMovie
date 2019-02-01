@@ -47,6 +47,16 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setRetainInstance(true);
+    }
+
+    public static NowPlayingFragment newInstance() {
+        return (NowPlayingFragment) new NowPlayingFragment();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         apiService = ApiUtils.getMovieApi();

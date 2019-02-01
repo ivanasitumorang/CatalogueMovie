@@ -46,6 +46,10 @@ public class UpComingFragment extends Fragment implements RecyclerViewClickListe
     public UpComingFragment() {
     }
 
+    public static UpComingFragment newInstance() {
+        return (UpComingFragment) new UpComingFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
