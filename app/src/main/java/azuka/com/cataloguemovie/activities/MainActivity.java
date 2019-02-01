@@ -63,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putInt(Strings.NAVIGATION_ID, bottomNavigationView.getSelectedItemId());
         outState.putInt(Strings.FRAGMENT_ID, fragment.getId());
-        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         bottomNavigationView.setSelectedItemId(savedInstanceState.getInt(Strings.NAVIGATION_ID));
         fragment = getSupportFragmentManager().findFragmentById(savedInstanceState.getInt(Strings.FRAGMENT_ID));
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -92,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
             toolbar.setTitle(R.string.now_playing);
         }
+        fragment = NowPlayingFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, NowPlayingFragment.newInstance(), NowPlayingFragment.class.getSimpleName());
+        transaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
         transaction.commit();
     }
 

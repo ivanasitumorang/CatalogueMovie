@@ -3,6 +3,7 @@ package azuka.com.cataloguemovie.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import azuka.com.cataloguemovie.BuildConfig;
@@ -42,6 +44,7 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     private ApiService apiService;
     private List<Movie> movieList;
     private MoviesAdapter moviesAdapter;
+    private Parcelable recyclerLayout;
 
     public NowPlayingFragment() {
     }
@@ -50,6 +53,13 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
+
+    }
+
+    private void restoreRecyclerLayoutPosition(){
+        if (recyclerLayout != null){
+            recyclerView.getLayoutManager().onRestoreInstanceState(recyclerLayout);
+        }
     }
 
     public static NowPlayingFragment newInstance() {
@@ -70,7 +80,29 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
         ButterKnife.bind(this, view);
         super.onViewCreated(view, savedInstanceState);
         setInit();
-        loadMovies();
+        if (savedInstanceState != null){
+            movieList = savedInstanceState.getParcelableArrayList(Strings.MOVIE_LIST);
+            recyclerLayout = savedInstanceState.getParcelable(Strings.RECYCLER_LAYOUT);
+            moviesAdapter.setMovies(movieList);
+            restoreRecyclerLayoutPosition();
+            moviesAdapter.notifyDataSetChanged();
+        } else {
+            loadMovies();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList(Strings.MOVIE_LIST, (ArrayList<? extends Parcelable>) movieList);
+        outState.putParcelable(Strings.RECYCLER_LAYOUT, recyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        movieList = savedInstanceState.getParcelableArrayList(Strings.MOVIE_LIST);
+        recyclerLayout = savedInstanceState.getParcelable(Strings.RECYCLER_LAYOUT);
     }
 
     private void setInit() {

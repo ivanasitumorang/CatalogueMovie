@@ -13,4 +13,6 @@ public class Strings {
     public static final String NO = "N";
     public static final String NAVIGATION_ID = "navigation_id";
     public static final String FRAGMENT_ID = "fragment_id";
+    public static final String MOVIE_LIST = "movie_list";
+    public static final String RECYCLER_LAYOUT = "recycler_layout";
 }
