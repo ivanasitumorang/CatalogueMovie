@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
     private RecyclerViewClickListener listener;
-    private List<Movie> movieList;
+    private ArrayList<Movie> movieList;
     private Context context;
     private Cursor cursor;
 
@@ -38,7 +38,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.listener = listener;
     }
 
-    public void setMovies(List<Movie> movieList) {
+    public void setMovies(ArrayList<Movie> movieList) {
         this.movieList = movieList;
     }
 
@@ -80,7 +80,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         @BindView(R.id.tv_overview) TextView tvOverview;
         @BindView(R.id.iv_thumb) ImageView ivThumb;
 
-        public MoviesViewHolder(View itemView) {
+        MoviesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);

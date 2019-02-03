@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import azuka.com.cataloguemovie.BuildConfig;
 import azuka.com.cataloguemovie.R;
@@ -40,7 +40,7 @@ public class UpComingFragment extends Fragment implements RecyclerViewClickListe
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     private ApiService apiService;
-    private List<Movie> movieList;
+    private ArrayList<Movie> movieList;
     private MoviesAdapter moviesAdapter;
 
     public UpComingFragment() {
@@ -70,9 +70,9 @@ public class UpComingFragment extends Fragment implements RecyclerViewClickListe
 
     private void loadMovies() {
         progressBar.setVisibility(View.VISIBLE);
-        apiService.getUpComing(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE).enqueue(new Callback<ApiResponse<List<Movie>>>() {
+        apiService.getUpComing(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE).enqueue(new Callback<ApiResponse<ArrayList<Movie>>>() {
             @Override
-            public void onResponse(Call<ApiResponse<List<Movie>>> call, Response<ApiResponse<List<Movie>>> response) {
+            public void onResponse(Call<ApiResponse<ArrayList<Movie>>> call, Response<ApiResponse<ArrayList<Movie>>> response) {
                 if (response.isSuccessful()) {
                     movieList = response.body().getResults();
                     moviesAdapter.setMovies(movieList);
@@ -82,7 +82,7 @@ public class UpComingFragment extends Fragment implements RecyclerViewClickListe
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<List<Movie>>> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<ArrayList<Movie>>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.w("onFailure", t.getMessage());
                 Toast.makeText(getContext(), getString(R.string.hint_no_internet), Toast.LENGTH_LONG).show();

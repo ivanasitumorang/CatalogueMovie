@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import azuka.com.cataloguemovie.BuildConfig;
 import azuka.com.cataloguemovie.R;
@@ -49,7 +49,7 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
     @BindView(R.id.btn_search)
     Button btnSearch;
     private ApiService apiService;
-    private List<Movie> movieList;
+    private ArrayList<Movie> movieList;
     private MoviesAdapter moviesAdapter;
 
     public SearchMovieFragment() {
@@ -88,9 +88,9 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
 
     private void searchMovie(String title) {
         progressBar.setVisibility(View.VISIBLE);
-        apiService.search(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE, title).enqueue(new Callback<ApiResponse<List<Movie>>>() {
+        apiService.search(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE, title).enqueue(new Callback<ApiResponse<ArrayList<Movie>>>() {
             @Override
-            public void onResponse(Call<ApiResponse<List<Movie>>> call, Response<ApiResponse<List<Movie>>> response) {
+            public void onResponse(Call<ApiResponse<ArrayList<Movie>>> call, Response<ApiResponse<ArrayList<Movie>>> response) {
                 if (response.isSuccessful()) {
                     movieList = response.body().getResults();
                     moviesAdapter.setMovies(movieList);
@@ -100,7 +100,7 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<List<Movie>>> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<ArrayList<Movie>>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.w("onFailure", t.getMessage());
                 Toast.makeText(getContext(), getString(R.string.hint_no_internet), Toast.LENGTH_LONG).show();

@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
-
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.listeners.RecyclerViewClickListener;
@@ -28,7 +26,6 @@ import butterknife.ButterKnife;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
 
     private RecyclerViewClickListener listener;
-    private List<Movie> movieList;
     private Context context;
     private Cursor cursor;
 
