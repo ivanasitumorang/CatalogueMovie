@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import azuka.com.cataloguemovie.R;
+import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.fragments.FavoriteFragment;
 import azuka.com.cataloguemovie.fragments.NowPlayingFragment;
 import azuka.com.cataloguemovie.fragments.SearchMovieFragment;
@@ -25,38 +26,54 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btm_nav)
     BottomNavigationView bottomNavigationView;
+
+    private final String TAG_NOW_PLAYING = NowPlayingFragment.class.getSimpleName();
+    private Fragment fragment = null;
     private ActionBar toolbar;
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.nav_now_playing:
-                    Fragment fragment = new NowPlayingFragment();
+                    fragment = NowPlayingFragment.newInstance();
                     toolbar.setTitle(getString(R.string.now_playing));
-                    loadFragment(fragment);
-                    return true;
+                    break;
 
                 case R.id.nav_up_coming:
-                    fragment = new UpComingFragment();
+                    fragment = UpComingFragment.newInstance();
                     toolbar.setTitle(getString(R.string.up_coming));
-                    loadFragment(fragment);
-                    return true;
-
-                case R.id.nav_search:
-                    fragment = new SearchMovieFragment();
-                    toolbar.setTitle(getString(R.string.search_movie));
-                    loadFragment(fragment);
-                    return true;
+                    break;
 
                 case R.id.nav_fav:
-                    fragment = new FavoriteFragment();
+                    fragment = FavoriteFragment.newInstance();
                     toolbar.setTitle(getString(R.string.favorite));
-                    loadFragment(fragment);
-                    return true;
+                    break;
+
+                case R.id.nav_search:
+                    fragment = SearchMovieFragment.newInstance();
+                    toolbar.setTitle(getString(R.string.search_movie));
+                    break;
             }
-            return false;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
+            transaction.commit();
+            return true;
         }
     };
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(Strings.NAVIGATION_ID, bottomNavigationView.getSelectedItemId());
+        outState.putInt(Strings.FRAGMENT_ID, fragment.getId());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        bottomNavigationView.setSelectedItemId(savedInstanceState.getInt(Strings.NAVIGATION_ID));
+        fragment = getSupportFragmentManager().findFragmentById(savedInstanceState.getInt(Strings.FRAGMENT_ID));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-        loadFragment(new NowPlayingFragment());
+        if (savedInstanceState == null){
+            loadFragment(new NowPlayingFragment());
+        }
     }
 
     private void initView() {
@@ -73,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
             toolbar.setTitle(R.string.now_playing);
         }
+        fragment = NowPlayingFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
+        transaction.commit();
     }
 
     private void loadFragment(Fragment fragment) {
