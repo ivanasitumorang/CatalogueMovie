@@ -40,7 +40,12 @@ public class FavoriteFragment extends Fragment implements RecyclerViewClickListe
     }
 
     public static FavoriteFragment newInstance() {
-        return (FavoriteFragment) new FavoriteFragment();
+        
+        Bundle args = new Bundle();
+        
+        FavoriteFragment fragment = new FavoriteFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

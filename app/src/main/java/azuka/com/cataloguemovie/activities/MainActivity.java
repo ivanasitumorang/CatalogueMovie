@@ -81,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-        if (savedInstanceState == null){
-            loadFragment(new NowPlayingFragment());
-        }
     }
 
     private void initView() {

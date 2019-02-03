@@ -46,6 +46,15 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     public NowPlayingFragment() {
     }
 
+    public static NowPlayingFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        NowPlayingFragment fragment = new NowPlayingFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +95,7 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
             public void onFailure(Call<ApiResponse<ArrayList<Movie>>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.w("onFailure", t.getMessage());
-                Toast.makeText(getContext(), getString(R.string.hint_no_internet), Toast.LENGTH_LONG).show();
+                showToast(getString(R.string.hint_no_internet));
             }
         });
     }

@@ -47,7 +47,12 @@ public class UpComingFragment extends Fragment implements RecyclerViewClickListe
     }
 
     public static UpComingFragment newInstance() {
-        return (UpComingFragment) new UpComingFragment();
+        
+        Bundle args = new Bundle();
+        
+        UpComingFragment fragment = new UpComingFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

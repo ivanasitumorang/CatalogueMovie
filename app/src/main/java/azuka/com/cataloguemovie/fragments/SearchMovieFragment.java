@@ -56,7 +56,12 @@ public class SearchMovieFragment extends Fragment implements View.OnClickListene
     }
 
     public static SearchMovieFragment newInstance() {
-        return (SearchMovieFragment) new SearchMovieFragment();
+
+        Bundle args = new Bundle();
+
+        SearchMovieFragment fragment = new SearchMovieFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
