@@ -58,18 +58,27 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.w("OnCreateView", "Jalan");
         apiService = ApiUtils.getMovieApi();
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
         ButterKnife.bind(this, view);
+        setRetainInstance(true);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(this, view);
         super.onViewCreated(view, savedInstanceState);
+        Log.w("OnViewCreated", "Jalan");
         setInit();
-        loadMovies();
+        if (savedInstanceState != null){
+            movieList = (ArrayList<Movie>) savedInstanceState.getSerializable(Strings.MOVIE_LIST);
+            moviesAdapter.setMovies(movieList);
+            recyclerView.setAdapter(moviesAdapter);
+        } else {
+            movieList = new ArrayList<>();
+            loadMovies();
+        }
     }
 
     private void setInit() {
@@ -79,6 +88,7 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
     }
 
     private void loadMovies() {
+        Log.w("LoadMovies", "Jalan");
         progressBar.setVisibility(View.VISIBLE);
         apiService.getNowPlaying(BuildConfig.TMDB_API_KEY, Strings.LANGUAGE).enqueue(new Callback<ApiResponse<ArrayList<Movie>>>() {
             @Override
@@ -98,6 +108,13 @@ public class NowPlayingFragment extends Fragment implements RecyclerViewClickLis
                 showToast(getString(R.string.hint_no_internet));
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(Strings.MOVIE_LIST, movieList);
+        Log.w("OnSaveInstance", "Jalan");
     }
 
     @Override
