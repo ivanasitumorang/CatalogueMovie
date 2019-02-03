@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/item_margin"
     android:clickable="true"
     android:focusable="true"
     android:foreground="@drawable/ripple_effect"
-    android:padding="@dimen/item_margin"
+    android:paddingLeft="@dimen/small_margin"
+    android:paddingRight="@dimen/small_margin"
+    android:layout_marginTop="@dimen/tiny_margin"
+    android:layout_marginBottom="@dimen/tiny_margin"
     app:cardCornerRadius="@dimen/corner_radius_medium">
 
     <LinearLayout

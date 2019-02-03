@@ -75,11 +75,34 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.w("OnCreate", "Jalan");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         setInit();
-        loadDetailMovie();
+        if (savedInstanceState == null){
+            loadDetailMovie();
+            isFavorite = checkFavorite();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.w("OnSaveInstanceState", "Jalan");
+        outState.putParcelable(Strings.MOVIE, movie);
+        outState.putBoolean(Strings.FAVORITED, isFavorite);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.w("OnRestoreInstanceState", "Jalan");
+        if (savedInstanceState != null){
+            movie = savedInstanceState.getParcelable(Strings.MOVIE);
+            isFavorite = savedInstanceState.getBoolean(Strings.FAVORITED);
+            setView(movie);
+        }
     }
 
     private void setInit() {
@@ -92,12 +115,18 @@ public class MovieDetailActivity extends AppCompatActivity {
         helper = new FavoriteMovieHelper(this);
         helper.open();
         movieId = getIntent().getStringExtra(Strings.MOVIE_ID);
-        isFavorite = checkFavorite();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.w("OnStop", "Jalan");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.w("OnDestroy", "Jalan");
         if (helper != null) {
             helper.close();
         }
@@ -195,7 +224,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     movieFromServer = response.body();
                     movie = movieFromServer;
-                    setView(movieFromServer);
+                    setView(movie);
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -209,7 +238,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setView(Movie movie) {
-        Glide.with(getApplicationContext())
+        Glide.with(MovieDetailActivity.this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.no_picture).error(R.drawable.no_picture))
                 .load(Strings.POSTER_BIG + movie.getPosterPath())
                 .into(ivPoster);
@@ -236,32 +265,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         values.put(RUNTIME, movie.getDuration());
         values.put(IS_FAVORITE, Strings.YES);
         getContentResolver().insert(CONTENT_URI, values);
-        /*
-        if (loadDataLocal() != null){
-            values.put(MOVIE_ID, loadDataLocal().getMovieId());
-            values.put(POSTER_PATH, loadDataLocal().getPosterPath());
-            values.put(ORIGINAL_TITLE, loadDataLocal().getTitle());
-            values.put(OVERVIEW, loadDataLocal().getOverview());
-            values.put(RELEASE_DATE, loadDataLocal().getReleaseDate());
-            values.put(ORIGINAL_LANGUAGE, loadDataLocal().getLanguage());
-            values.put(TAGLINE, loadDataLocal().getTagline());
-            values.put(VOTE_AVERAGE, loadDataLocal().getRating());
-            values.put(RUNTIME, loadDataLocal().getDuration());
-            values.put(IS_FAVORITE, Strings.YES);
-            getContentResolver().insert(CONTENT_URI, values);
-        } else {
-            values.put(MOVIE_ID, movieFromServer.getMovieId());
-            values.put(POSTER_PATH, movieFromServer.getPosterPath());
-            values.put(ORIGINAL_TITLE, movieFromServer.getTitle());
-            values.put(OVERVIEW, movieFromServer.getOverview());
-            values.put(RELEASE_DATE, movieFromServer.getReleaseDate());
-            values.put(ORIGINAL_LANGUAGE, movieFromServer.getLanguage());
-            values.put(TAGLINE, movieFromServer.getTagline());
-            values.put(VOTE_AVERAGE, movieFromServer.getRating());
-            values.put(RUNTIME, movieFromServer.getDuration());
-            values.put(IS_FAVORITE, Strings.YES);
-        }
-         */
     }
 
     private void removeFromFavorite() {

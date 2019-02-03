@@ -15,7 +15,9 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/default_margin"
+        android:paddingTop="@dimen/item_margin"
+        android:paddingBottom="@dimen/item_margin"
+        android:clipToPadding="false"
         tools:listitem="@layout/item_movie" />
 
 </FrameLayout>

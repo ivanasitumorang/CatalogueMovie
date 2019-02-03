@@ -6,7 +6,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import azuka.com.cataloguemovie.R;
-import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.fragments.FavoriteFragment;
 import azuka.com.cataloguemovie.fragments.NowPlayingFragment;
 import azuka.com.cataloguemovie.fragments.SearchMovieFragment;
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btm_nav)
     BottomNavigationView bottomNavigationView;
 
-    private final String TAG_NOW_PLAYING = NowPlayingFragment.class.getSimpleName();
     private Fragment fragment = null;
     private ActionBar toolbar;
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,20 +59,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(Strings.NAVIGATION_ID, bottomNavigationView.getSelectedItemId());
-        outState.putInt(Strings.FRAGMENT_ID, fragment.getId());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        bottomNavigationView.setSelectedItemId(savedInstanceState.getInt(Strings.NAVIGATION_ID));
-        fragment = getSupportFragmentManager().findFragmentById(savedInstanceState.getInt(Strings.FRAGMENT_ID));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -93,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
         transaction.commit();
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName());
-        fragmentTransaction.commit();
     }
 
     @Override
