@@ -1,13 +1,11 @@
 package azuka.com.cataloguemovie;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import azuka.com.cataloguemovie.activities.MovieDetailActivity;
@@ -39,17 +37,6 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
         toastIntent.setAction(FavoriteMovieWidget.CLICK_ACTION);
         toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
-        PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
-
-        Intent updateIntent = new Intent(context, FavoriteMovieWidget.class);
-        updateIntent.setAction(UPDATE_ACTION);
-        context.sendBroadcast(updateIntent);
-        /*
-        PendingIntent updatePendingIntent = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.stack_view, updatePendingIntent);
-         */
-
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -75,21 +62,14 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
             if (intent.getAction().equals(CLICK_ACTION)) {
-                Log.e("onReceive", "TOAST");
                 Intent i = new Intent(context, MovieDetailActivity.class);
                 Uri uri = Uri.parse(CONTENT_URI + "/" + intent.getStringExtra(Strings.MOVIE_ID));
                 i.setData(uri);
                 context.startActivity(i);
-                //Toast.makeText(context, "Judul : " + intent.getStringExtra(Strings.MOVIE_TITLE), Toast.LENGTH_SHORT).show();
             }
             if (intent.getAction().equals(UPDATE_ACTION)){
-                Log.e("onReceive", "UPDATE");
                 int widgetIDs[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, FavoriteMovieWidget.class));
                 AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(widgetIDs, R.id.stack_view);
-                /*
-                for (int id : widgetIDs)
-                    AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(id, R.id.stack_view);
-                 */
             }
         }
         super.onReceive(context, intent);
