@@ -1,5 +1,6 @@
 package azuka.com.cataloguemovie;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -33,9 +34,12 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.stack_view, intent);
         views.setEmptyView(R.id.stack_view, R.id.tv_no_data);
 
-        Intent toastIntent = new Intent(context, FavoriteMovieWidget.class);
-        toastIntent.setAction(FavoriteMovieWidget.CLICK_ACTION);
-        toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        Intent clickIntent = new Intent(context, FavoriteMovieWidget.class);
+        clickIntent.setAction(FavoriteMovieWidget.CLICK_ACTION);
+        clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+
+        PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.stack_view, clickPendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
