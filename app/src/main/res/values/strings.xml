@@ -18,6 +18,7 @@
     <string name="hint_added_to_favorite">Added To Favorite</string>
     <string name="hint_removed_from_favorite">Removed From Favorite</string>
     <string name="hint_no_favorite">No Favorite Movie(s) Found</string>
+    <string name="hint_no_data">No Data Available</string>
 
     <!-- Detail -->
     <string name="rating">Rating</string>
@@ -26,6 +27,8 @@
     <string name="genres">Genres</string>
     <string name="release_date">Release Date</string>
     <string name="overview">Overview</string>
+
+    <string name="fav_movie">Favorite Movies</string>
 
 
 </resources>

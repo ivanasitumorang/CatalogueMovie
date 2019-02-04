@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_item"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/item_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_thumb"
@@ -41,7 +42,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorAccent" />
+                android:background="@color/colorSecondary" />
 
             <TextView
                 android:id="@+id/tv_overview"

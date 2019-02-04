@@ -1,6 +1,7 @@
 package azuka.com.cataloguemovie.activities;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import azuka.com.cataloguemovie.BuildConfig;
+import azuka.com.cataloguemovie.FavoriteMovieWidget;
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.helpers.FavoriteMovieHelper;
@@ -151,6 +153,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else {
             menu.findItem(R.id.btn_fav).setIcon(R.drawable.ic_heart_outline);
         }
+        menu.findItem(R.id.btn_fav).getIcon().setTint(getResources().getColor(R.color.colorSecondary));
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -174,6 +177,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             item.setIcon(R.drawable.ic_heart_outline);
             isFavorite = true;
         }
+        Intent updateWidget = new Intent(this, FavoriteMovieWidget.class);
+        updateWidget.setAction(FavoriteMovieWidget.UPDATE_ACTION);
+        sendBroadcast(updateWidget);
     }
 
     private void showToast(String text) {

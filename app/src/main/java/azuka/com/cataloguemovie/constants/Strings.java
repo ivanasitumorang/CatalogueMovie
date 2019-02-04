@@ -12,5 +12,6 @@ public class Strings {
     public static final String NO = "N";
     public static final String MOVIE_LIST = "movie_list";
     public static final String MOVIE = "movie";
+    public static final String MOVIE_TITLE = "movie_title";
     public static final String FAVORITED = "favorited";
 }

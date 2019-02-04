@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btm_nav"
         android:paddingLeft="@dimen/default_margin"
+        android:background="@color/colorPrimaryLight"
         android:paddingRight="@dimen/default_margin" />
 
     <android.support.design.widget.BottomNavigationView

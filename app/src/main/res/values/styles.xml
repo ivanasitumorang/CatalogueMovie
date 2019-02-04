@@ -5,12 +5,13 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorSecondary</item>
         <item name="actionBarStyle">@style/ActionBar</item>
     </style>
 
     <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="titleTextStyle">@style/TitleText</item>
+        <item name="background">@color/colorPrimary</item>
     </style>
 
     <style name="TitleText" parent="@style/TextAppearance.AppCompat.Title">

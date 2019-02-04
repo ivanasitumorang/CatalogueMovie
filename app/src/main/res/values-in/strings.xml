@@ -18,6 +18,7 @@
     <string name="hint_added_to_favorite">Ditambahkan Ke Favorit</string>
     <string name="hint_removed_from_favorite">Dihapus Dari Favorit</string>
     <string name="hint_no_favorite">Film Favorit Tidak Ditemukan</string>
+    <string name="hint_no_data">Data Tidak Tersedia</string>
 
     <!-- Detail -->
     <string name="rating">Penilaian</string>
@@ -26,4 +27,6 @@
     <string name="genres">Genres</string>
     <string name="release_date">Tanggal Rilis</string>
     <string name="overview">Ikhtisar</string>
+
+    <string name="fav_movie">Film Favorite</string>
 </resources>

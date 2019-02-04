@@ -7,7 +7,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import azuka.com.cataloguemovie.constants.Strings;
@@ -101,7 +100,7 @@ public class Movie implements Parcelable {
         this.isFavorite = in.readString();
         this.rating = in.readFloat();
         this.duration = in.readInt();
-        this.genres = new ArrayList<Genre>();
+        //this.genres = new ArrayList<Genre>();
         in.readList(this.genres, Genre.class.getClassLoader());
     }
 
@@ -213,6 +212,6 @@ public class Movie implements Parcelable {
         dest.writeString(this.isFavorite);
         dest.writeFloat(this.rating);
         dest.writeInt(this.duration);
-        dest.writeList(this.genres);
+        //dest.writeList(this.genres);
     }
 }
