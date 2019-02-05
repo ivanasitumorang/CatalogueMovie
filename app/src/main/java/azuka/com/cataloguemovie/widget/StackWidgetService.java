@@ -1,4 +1,4 @@
-package azuka.com.cataloguemovie;
+package azuka.com.cataloguemovie.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

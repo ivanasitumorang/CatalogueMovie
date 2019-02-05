@@ -1,4 +1,4 @@
-package azuka.com.cataloguemovie;
+package azuka.com.cataloguemovie.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.database.DatabaseContract;
 import azuka.com.cataloguemovie.helpers.DatabaseHelper;

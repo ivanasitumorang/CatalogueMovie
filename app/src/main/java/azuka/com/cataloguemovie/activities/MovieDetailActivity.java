@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import azuka.com.cataloguemovie.BuildConfig;
-import azuka.com.cataloguemovie.FavoriteMovieWidget;
+import azuka.com.cataloguemovie.widget.FavoriteMovieWidget;
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.helpers.FavoriteMovieHelper;

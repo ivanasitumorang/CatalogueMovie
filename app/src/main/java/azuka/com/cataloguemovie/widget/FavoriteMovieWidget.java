@@ -1,4 +1,4 @@
-package azuka.com.cataloguemovie;
+package azuka.com.cataloguemovie.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
+import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.activities.MovieDetailActivity;
 import azuka.com.cataloguemovie.constants.Strings;
 
