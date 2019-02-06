@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " %s INTEGER NOT NULL," +
                     " %s TEXT DEFAULT 'N')",
             DatabaseContract.TABLE_FAV_MOVIE,
-            DatabaseContract.FavoriteMovieColumns.MOVIE_ID,
+            DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID,
             DatabaseContract.FavoriteMovieColumns.POSTER_PATH,
             DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE,
             DatabaseContract.FavoriteMovieColumns.OVERVIEW,

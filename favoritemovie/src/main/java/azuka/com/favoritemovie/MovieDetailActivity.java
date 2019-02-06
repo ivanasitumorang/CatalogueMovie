@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 import static azuka.com.favoritemovie.database.DatabaseContract.CONTENT_URI;
 import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
-import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID;
 import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
 import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
 import static azuka.com.favoritemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
@@ -146,7 +146,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void saveToFavorite() {
         ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movie.getMovieId());
+        values.put(FAV_MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
         values.put(OVERVIEW, movie.getOverview());

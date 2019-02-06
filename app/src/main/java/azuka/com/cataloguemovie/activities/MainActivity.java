@@ -80,16 +80,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.act_change_language) {
-            invalidateOptionsMenu();
+
             startActivity(new Intent(Settings.ACTION_LOCALE_SETTINGS));
+        } else if (item.getItemId() == R.id.act_setting){
+            startActivity(new Intent(this, SettingActivity.class));
         }
+        invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 }

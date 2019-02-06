@@ -6,4 +6,11 @@
         android:id="@+id/act_change_language"
         android:title="@string/change_language"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/act_setting"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:iconTint="@color/colorSecondary"
+        android:title="@string/setting"
+        app:showAsAction="always" />
 </menu>

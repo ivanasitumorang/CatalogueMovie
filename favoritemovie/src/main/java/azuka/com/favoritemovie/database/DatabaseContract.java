@@ -32,7 +32,7 @@ public class DatabaseContract {
     }
 
     public static final class FavoriteMovieColumns implements BaseColumns {
-        public static String MOVIE_ID = "movie_id";
+        public static String FAV_MOVIE_ID = "fav_movie_id";
         public static String POSTER_PATH = "poster_path";
         public static String ORIGINAL_TITLE = "original_title";
         public static String OVERVIEW = "overview";

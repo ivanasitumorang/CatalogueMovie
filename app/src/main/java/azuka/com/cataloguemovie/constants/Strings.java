@@ -14,4 +14,16 @@ public class Strings {
     public static final String MOVIE = "movie";
     public static final String MOVIE_TITLE = "movie_title";
     public static final String FAVORITED = "favorited";
+
+    public static final String MESSAGE = "message";
+    public static final String TIME = "09:00";
+
+    public static final String PREFERENCES_TYPE = "pref_type";
+
+    public static final String REMINDER_RECEIVE_DAILY = "reminder_receive_daily";
+
+    public static final String PREFERENCES_REMINDER_DAILY = "pref_reminder_daily";
+    public static final String PREFERENCES_REMINDER_DAILY_TIME = "pref_reminder_daily_time";
+
+    public static final String PREFERENCES_REMINDER_RELEASE = "pref_reminder_release";
 }

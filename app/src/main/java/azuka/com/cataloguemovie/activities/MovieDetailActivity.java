@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 import static azuka.com.cataloguemovie.database.DatabaseContract.CONTENT_URI;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
-import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
@@ -260,7 +260,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void saveToFavorite(Movie movie) {
         ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movie.getMovieId());
+        values.put(FAV_MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
         values.put(OVERVIEW, movie.getOverview());

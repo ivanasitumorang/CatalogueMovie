@@ -12,7 +12,7 @@ import azuka.com.cataloguemovie.models.Movie;
 
 import static android.provider.BaseColumns._ID;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
-import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
@@ -61,7 +61,7 @@ public class FavoriteMovieHelper {
         if (cursor.getCount() > 0) {
             do {
                 movie = new Movie();
-                movie.setMovieId(cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_ID)));
+                movie.setMovieId(cursor.getString(cursor.getColumnIndexOrThrow(FAV_MOVIE_ID)));
                 movie.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(POSTER_PATH)));
                 movie.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(ORIGINAL_TITLE)));
                 movie.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(OVERVIEW)));
@@ -82,7 +82,7 @@ public class FavoriteMovieHelper {
 
     public long insert(Movie movie) {
         ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movie.getMovieId());
+        values.put(FAV_MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
         values.put(OVERVIEW, movie.getOverview());
@@ -98,7 +98,7 @@ public class FavoriteMovieHelper {
 
     public int update(Movie movie) {
         ContentValues values = new ContentValues();
-        values.put(MOVIE_ID, movie.getMovieId());
+        values.put(FAV_MOVIE_ID, movie.getMovieId());
         values.put(POSTER_PATH, movie.getPosterPath());
         values.put(ORIGINAL_TITLE, movie.getTitle());
         values.put(OVERVIEW, movie.getOverview());
@@ -108,17 +108,17 @@ public class FavoriteMovieHelper {
         values.put(VOTE_AVERAGE, movie.getRating());
         values.put(RUNTIME, movie.getDuration());
         values.put(IS_FAVORITE, 1);
-        return database.update(TABLE_NAME, values, MOVIE_ID + "= '" + movie.getMovieId() + "'", null);
+        return database.update(TABLE_NAME, values, FAV_MOVIE_ID + "= '" + movie.getMovieId() + "'", null);
     }
 
     public int delete(int movieId) {
-        return database.delete(TABLE_NAME, MOVIE_ID + " = '" + movieId + "'", null);
+        return database.delete(TABLE_NAME, FAV_MOVIE_ID + " = '" + movieId + "'", null);
     }
 
     public Cursor queryByIdProvider(String movieId) {
         return database.query(TABLE_NAME,
                 null,
-                MOVIE_ID + " = ?",
+                FAV_MOVIE_ID + " = ?",
                 new String[]{movieId},
                 null,
                 null,
@@ -133,7 +133,7 @@ public class FavoriteMovieHelper {
                 new String[]{"Y"},
                 null,
                 null,
-                MOVIE_ID + " DESC");
+                FAV_MOVIE_ID + " DESC");
     }
 
     public long insertProvider(ContentValues values) {
@@ -141,10 +141,10 @@ public class FavoriteMovieHelper {
     }
 
     public int updateProvider(String movieId, ContentValues values) {
-        return database.update(TABLE_NAME, values, MOVIE_ID + " = ?", new String[]{movieId});
+        return database.update(TABLE_NAME, values, FAV_MOVIE_ID + " = ?", new String[]{movieId});
     }
 
     public int deleteProvider(String movieId) {
-        return database.delete(TABLE_NAME, MOVIE_ID + " = ?", new String[]{movieId});
+        return database.delete(TABLE_NAME, FAV_MOVIE_ID + " = ?", new String[]{movieId});
     }
 }

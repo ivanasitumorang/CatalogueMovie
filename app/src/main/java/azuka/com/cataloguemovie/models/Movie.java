@@ -12,7 +12,7 @@ import java.util.List;
 import azuka.com.cataloguemovie.constants.Strings;
 
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
-import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
@@ -77,7 +77,7 @@ public class Movie implements Parcelable {
     }
 
     public Movie(Cursor cursor) {
-        this.movieId = getColumnString(cursor, MOVIE_ID);
+        this.movieId = getColumnString(cursor, FAV_MOVIE_ID);
         this.posterPath = getColumnString(cursor, POSTER_PATH);
         this.title = getColumnString(cursor, ORIGINAL_TITLE);
         this.overview = getColumnString(cursor, OVERVIEW);

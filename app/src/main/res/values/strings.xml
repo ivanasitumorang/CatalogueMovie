@@ -10,6 +10,7 @@
 
     <!-- Menu -->
     <string name="change_language">Change Language</string>
+    <string name="setting">Setting</string>
 
     <!-- Hint -->
     <string name="hint_search">Search Movie Title</string>
@@ -29,6 +30,8 @@
     <string name="overview">Overview</string>
 
     <string name="fav_movie">Favorite Movies</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_msg">Comeback to the app!</string>
 
 
 </resources>
