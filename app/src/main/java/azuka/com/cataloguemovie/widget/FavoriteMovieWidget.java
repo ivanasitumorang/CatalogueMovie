@@ -68,6 +68,7 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
         if (intent.getAction() != null) {
             if (intent.getAction().equals(CLICK_ACTION)) {
                 Intent i = new Intent(context, MovieDetailActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 Uri uri = Uri.parse(CONTENT_URI + "/" + intent.getStringExtra(Strings.MOVIE_ID));
                 i.setData(uri);
                 context.startActivity(i);

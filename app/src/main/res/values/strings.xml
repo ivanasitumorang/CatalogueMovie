@@ -33,5 +33,8 @@
     <string name="daily_reminder">Daily Reminder</string>
     <string name="daily_reminder_msg">Comeback to the app!</string>
 
+    <string name="release_today_reminder">Release Today Reminder</string>
+    <string name="release_today_reminder_msg">has been released today!</string>
+
 
 </resources>

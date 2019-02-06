@@ -10,6 +10,7 @@ import android.widget.ToggleButton;
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.helpers.AppPreference;
 import azuka.com.cataloguemovie.reminder.DailyReminder;
+import azuka.com.cataloguemovie.reminder.ReleaseTodayReminder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -18,7 +19,9 @@ import static azuka.com.cataloguemovie.constants.Strings.TIME;
 public class SettingActivity extends AppCompatActivity {
 
     @BindView(R.id.tb_daily_reminder) ToggleButton tbDailyReminder;
+    @BindView(R.id.tb_release_today_reminder) ToggleButton tbReleaseTodayReminder;
     private DailyReminder dailyReminder;
+    private ReleaseTodayReminder releaseTodayReminder;
     private AppPreference appPreference;
 
     @Override
@@ -28,24 +31,39 @@ public class SettingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dailyReminder = new DailyReminder();
+        releaseTodayReminder = new ReleaseTodayReminder();
+
         appPreference = new AppPreference(this);
+        loadPreference();
 
         tbDailyReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 appPreference.setDailyReminder(isChecked, TIME);
                 if (isChecked){
-                    dailyReminder.startReminder(SettingActivity.this, TIME, getString(R.string.daily_reminder_msg));
+                    dailyReminder.startReminder(SettingActivity.this, TIME);
                 } else {
                     dailyReminder.stopReminder(SettingActivity.this);
                 }
             }
         });
-        loadPreference();
+
+        tbReleaseTodayReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                appPreference.setReleaseTodayReminder(isChecked, TIME);
+                if (isChecked){
+                    releaseTodayReminder.startReminder(SettingActivity.this, TIME);
+                } else {
+                    releaseTodayReminder.stopReminder(SettingActivity.this);
+                }
+            }
+        });
     }
 
     private void loadPreference() {
         tbDailyReminder.setChecked(appPreference.getDailyReminder());
+        tbReleaseTodayReminder.setChecked(appPreference.getReleaseTodayReminder());
     }
 
     @Override

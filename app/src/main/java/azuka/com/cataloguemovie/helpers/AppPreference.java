@@ -28,4 +28,15 @@ public class AppPreference {
     public Boolean getDailyReminder(){
         return prefs.getBoolean(Strings.PREFERENCES_REMINDER_DAILY, true);
     }
+
+    public void setReleaseTodayReminder(Boolean input, String time){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Strings.PREFERENCES_REMINDER_RELEASE, input);
+        editor.putString(Strings.PREFERENCES_REMINDER_DAILY_TIME, time);
+        editor.apply();
+    }
+
+    public Boolean getReleaseTodayReminder(){
+        return prefs.getBoolean(Strings.PREFERENCES_REMINDER_RELEASE, true);
+    }
 }

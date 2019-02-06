@@ -20,13 +20,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import azuka.com.cataloguemovie.BuildConfig;
-import azuka.com.cataloguemovie.widget.FavoriteMovieWidget;
 import azuka.com.cataloguemovie.R;
 import azuka.com.cataloguemovie.constants.Strings;
 import azuka.com.cataloguemovie.helpers.FavoriteMovieHelper;
 import azuka.com.cataloguemovie.models.Movie;
 import azuka.com.cataloguemovie.services.ApiService;
 import azuka.com.cataloguemovie.services.ApiUtils;
+import azuka.com.cataloguemovie.widget.FavoriteMovieWidget;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -34,8 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static azuka.com.cataloguemovie.database.DatabaseContract.CONTENT_URI;
-import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.FAV_MOVIE_ID;
+import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.IS_FAVORITE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_LANGUAGE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.ORIGINAL_TITLE;
 import static azuka.com.cataloguemovie.database.DatabaseContract.FavoriteMovieColumns.OVERVIEW;
@@ -77,12 +77,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.w("OnCreate", "Jalan");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         setInit();
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             loadDetailMovie();
             isFavorite = checkFavorite();
         }
@@ -91,7 +90,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.w("OnSaveInstanceState", "Jalan");
         outState.putParcelable(Strings.MOVIE, movie);
         outState.putBoolean(Strings.FAVORITED, isFavorite);
     }
@@ -99,8 +97,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.w("OnRestoreInstanceState", "Jalan");
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             movie = savedInstanceState.getParcelable(Strings.MOVIE);
             isFavorite = savedInstanceState.getBoolean(Strings.FAVORITED);
             setView(movie);
@@ -120,15 +117,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.w("OnStop", "Jalan");
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.w("OnDestroy", "Jalan");
         if (helper != null) {
             helper.close();
         }
@@ -279,7 +269,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else {
             getContentResolver().delete(uriDetailMovie, null, null);
         }
-
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
 }

@@ -59,6 +59,11 @@
             android:name=".reminder.DailyReminder"
             android:enabled="true"
             android:exported="true" />
+
+        <receiver
+            android:name=".reminder.ReleaseTodayReminder"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
