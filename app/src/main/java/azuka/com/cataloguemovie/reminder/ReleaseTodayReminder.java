@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -61,7 +62,7 @@ public class ReleaseTodayReminder extends BroadcastReceiver {
             @Override
             public void onResponse(Call<ApiResponse<ArrayList<Movie>>> call, Response<ApiResponse<ArrayList<Movie>>> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().getResults() != null) {
+                    if (response.body() != null){
                         if (response.body().getResults() != null) {
                             tmpMovies = response.body().getResults();
                             for (Movie movie : tmpMovies) {
@@ -70,8 +71,8 @@ public class ReleaseTodayReminder extends BroadcastReceiver {
                                     movieList.add(movie);
                                 }
                             }
+                            releaseTodayNotification(context);
                         }
-                        releaseTodayNotification(context);
                     }
                 }
             }
@@ -87,8 +88,8 @@ public class ReleaseTodayReminder extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notifications_48dp);
 
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.enableVibration(true);
@@ -98,7 +99,6 @@ public class ReleaseTodayReminder extends BroadcastReceiver {
                 mNotificationManager.createNotificationChannel(channel);
             }
         }
-
         Intent intent;
         PendingIntent pendingIntent;
 
@@ -109,43 +109,49 @@ public class ReleaseTodayReminder extends BroadcastReceiver {
             Log.w("ERROR", e.getMessage());
         }
 
-        String title = "";
         String msg = "";
 
         if (numMovies == 0) {
-            title = "Today release";
             msg = "Tidak ada Movie rilis hari ini";
             intent = new Intent(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE_RELEASE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setContentTitle(title)
+            // | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            //pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE_RELEASE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            pendingIntent = TaskStackBuilder.create(context)
+                .addNextIntent(intent)
+                .getPendingIntent(REQUEST_CODE_RELEASE, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mBuilder.setContentTitle(context.getString(R.string.release_today_reminder))
                     .setContentText(msg)
                     .setSmallIcon(R.drawable.ic_notifications_48dp)
                     .setLargeIcon(largeIcon)
                     .setContentIntent(pendingIntent)
                     .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                    .setSound(alarmSound)
+                    .setSound(sound)
                     .setAutoCancel(true);
             if (mNotificationManager != null) {
                 mNotificationManager.notify(0, mBuilder.build());
             }
         } else {
             intent = new Intent(context, MovieDetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //| Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             for (int i = 0; i < numMovies; i++) {
-                title = movieList.get(i).getTitle();
                 msg = movieList.get(i).getTitle() + " " + context.getString(R.string.release_today_reminder_msg);
                 intent.putExtra(Strings.MOVIE_ID, movieList.get(i).getMovieId());
-                pendingIntent = PendingIntent.getActivity(context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setContentTitle(title)
+                //pendingIntent = PendingIntent.getActivity(context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent = TaskStackBuilder.create(context)
+                        .addNextIntent(intent)
+                        .getPendingIntent(i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                mBuilder.setContentTitle(context.getString(R.string.release_today_reminder))
                         .setContentText(msg)
                         .setSmallIcon(R.drawable.ic_notifications_48dp)
                         .setLargeIcon(largeIcon)
                         .setContentIntent(pendingIntent)
                         .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                        .setSound(alarmSound)
+                        .setSound(sound)
                         .setAutoCancel(true);
                 if (mNotificationManager != null) {
                     mNotificationManager.notify(i, mBuilder.build());

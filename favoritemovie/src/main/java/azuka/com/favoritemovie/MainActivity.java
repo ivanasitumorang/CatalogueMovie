@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setInit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadFavoriteMovies();
     }
 

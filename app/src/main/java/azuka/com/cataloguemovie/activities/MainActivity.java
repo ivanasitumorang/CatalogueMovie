@@ -2,7 +2,6 @@ package azuka.com.cataloguemovie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -85,11 +84,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.act_change_language) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.act_setting).getIcon().setTint(getResources().getColor(R.color.colorSecondary));
+        return super.onPrepareOptionsMenu(menu);
+    }
 
-            startActivity(new Intent(Settings.ACTION_LOCALE_SETTINGS));
-        } else if (item.getItemId() == R.id.act_setting){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.act_setting) {
             startActivity(new Intent(this, SettingActivity.class));
         }
         invalidateOptionsMenu();

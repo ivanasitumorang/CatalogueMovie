@@ -41,7 +41,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorAccent" />
+                android:background="@color/title_item" />
 
             <TextView
                 android:id="@+id/tv_overview"

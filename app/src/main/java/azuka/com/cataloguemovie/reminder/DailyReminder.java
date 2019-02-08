@@ -40,7 +40,7 @@ public class DailyReminder extends BroadcastReceiver {
 
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         PendingIntent pendingIntent = TaskStackBuilder.create(context)
                 .addNextIntent(intent)
@@ -54,7 +54,7 @@ public class DailyReminder extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setContentText(context.getString(R.string.daily_reminder_msg))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound)
+                .setSound(sound)
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -85,7 +85,7 @@ public class DailyReminder extends BroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE_DAILY, intent, 0);
         if (alarmManager != null) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
 

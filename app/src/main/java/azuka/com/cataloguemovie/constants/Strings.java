@@ -14,7 +14,8 @@ public class Strings {
     public static final String MOVIE = "movie";
     public static final String MOVIE_TITLE = "movie_title";
     public static final String FAVORITED = "favorited";
-    public static final String TIME = "12:05";
+    public static final String TIME_DAILY = "07:00";
+    public static final String TIME_RELEASE = "08:00";
     public static final String PREFERENCES_REMINDER_DAILY = "pref_reminder_daily";
     public static final String PREFERENCES_REMINDER_DAILY_TIME = "pref_reminder_daily_time";
     public static final String PREFERENCES_REMINDER_RELEASE = "pref_reminder_release";

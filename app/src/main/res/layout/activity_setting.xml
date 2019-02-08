@@ -4,54 +4,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".activities.SettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/default_margin">
 
-        <TextView
-            android:layout_width="0dp"
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="2"
-            android:gravity="start"
-            android:text="@string/daily_reminder" />
+            android:elevation="@dimen/small_margin"
+            android:padding="@dimen/default_margin"
+            app:cardCornerRadius="@dimen/corner_radius_medium">
 
-        <ToggleButton
-            android:id="@+id/tb_daily_reminder"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_change_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_oval_pink_light"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_btn"
+                android:text="@string/change_language"
+                android:textAllCaps="false"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/font_big" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="1"/>
+            android:layout_marginTop="@dimen/default_margin"
+            android:elevation="@dimen/small_margin"
+            android:padding="@dimen/default_margin"
+            app:cardCornerRadius="@dimen/corner_radius_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_reminder"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/font_big"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_daily_reminder"
+                        android:textSize="@dimen/font_normal" />
+
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tb_daily_reminder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_oval_pink_light"
+                    android:focusable="true"
+                    android:foreground="@drawable/ripple_effect_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textPrimary"
+                    android:textOff="@string/toggle_off"
+                    android:textOn="@string/toggle_on"
+                    android:textSize="@dimen/font_big" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:elevation="@dimen/small_margin"
+            android:padding="@dimen/default_margin"
+            app:cardCornerRadius="@dimen/corner_radius_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/release_today_reminder"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/font_big"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_release_today_reminder"
+                        android:textSize="@dimen/font_normal" />
+
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tb_release_today_reminder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_oval_pink_light"
+                    android:focusable="true"
+                    android:foreground="@drawable/ripple_effect_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textPrimary"
+                    android:textOff="@string/toggle_off"
+                    android:textOn="@string/toggle_on"
+                    android:textSize="@dimen/font_big" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="2"
-            android:gravity="start"
-            android:text="@string/release_today_reminder" />
-
-        <ToggleButton
-            android:id="@+id/tb_release_today_reminder"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="1"
-            android:text="Daily Reminder" />
-    </LinearLayout>
 
 </LinearLayout>

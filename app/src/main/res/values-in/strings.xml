@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Katalog Film</string>
 
     <!-- Navigation -->
     <string name="now_playing">Sedang Tayang</string>
@@ -10,6 +9,7 @@
 
     <!-- Menu -->
     <string name="change_language">Ganti Bahasa</string>
+    <string name="setting">Pengaturan</string>
 
     <!-- Hint -->
     <string name="hint_search">Cari Judul Film</string>
@@ -19,6 +19,11 @@
     <string name="hint_removed_from_favorite">Dihapus Dari Favorit</string>
     <string name="hint_no_favorite">Film Favorit Tidak Ditemukan</string>
     <string name="hint_no_data">Data Tidak Tersedia</string>
+    <string name="hint_daily_reminder">Aplikasi akan mengingatkan kamu untuk kembali</string>
+    <string name="hint_release_today_reminder">Kamu akan mendapatkan notifikasi film yang rilis hari ini</string>
+    <string name="hint_loading_data">Tunggu sampai data selesai dimuat</string>
+    <string name="toggle_off">Mati</string>
+    <string name="toggle_on">Hidup</string>
 
     <!-- Detail -->
     <string name="rating">Penilaian</string>
@@ -28,5 +33,11 @@
     <string name="release_date">Tanggal Rilis</string>
     <string name="overview">Ikhtisar</string>
 
-    <string name="fav_movie">Film Favorite</string>
+    <string name="fav_movie">Film Favorit</string>
+
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="daily_reminder_msg">Aplikasi Catalogue Movie merindukanmu lho!</string>
+
+    <string name="release_today_reminder">Rilis Hari Ini</string>
+    <string name="release_today_reminder_msg">telah dirilis hari ini!</string>
 </resources>

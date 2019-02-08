@@ -158,14 +158,23 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void toggleFavorite(MenuItem item) {
         if (isFavorite) {
-            removeFromFavorite();
-            showToast(getString(R.string.hint_removed_from_favorite));
-            isFavorite = false;
+            if (movie != null){
+                removeFromFavorite();
+                showToast(getString(R.string.hint_removed_from_favorite));
+                isFavorite = false;
+            } else {
+                showToast(getString(R.string.hint_loading_data));
+            }
         } else {
-            saveToFavorite(movie);
-            showToast(getString(R.string.hint_added_to_favorite));
-            item.setIcon(R.drawable.ic_heart_outline);
-            isFavorite = true;
+            if (movie != null){
+                saveToFavorite(movie);
+                showToast(getString(R.string.hint_added_to_favorite));
+                item.setIcon(R.drawable.ic_heart_outline);
+                isFavorite = true;
+            } else {
+                showToast(getString(R.string.hint_loading_data));
+            }
+
         }
         Intent updateWidget = new Intent(this, FavoriteMovieWidget.class);
         updateWidget.setAction(FavoriteMovieWidget.UPDATE_ACTION);
@@ -273,6 +282,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        finish();
         super.onBackPressed();
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }

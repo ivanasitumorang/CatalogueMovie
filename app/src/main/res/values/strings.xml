@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Catalogue Movie</string>
+    <string name="app_name" translatable="false">Catalogue Movie</string>
 
     <!-- Navigation -->
     <string name="now_playing">Now Playing</string>
@@ -20,6 +20,11 @@
     <string name="hint_removed_from_favorite">Removed From Favorite</string>
     <string name="hint_no_favorite">No Favorite Movie(s) Found</string>
     <string name="hint_no_data">No Data Available</string>
+    <string name="hint_daily_reminder">App will remind you to come back everyday</string>
+    <string name="hint_release_today_reminder">You will get notification about today\'s released movie(s)</string>
+    <string name="hint_loading_data">Wait until the data loaded</string>
+    <string name="toggle_off">Off</string>
+    <string name="toggle_on">On</string>
 
     <!-- Detail -->
     <string name="rating">Rating</string>
@@ -31,7 +36,7 @@
 
     <string name="fav_movie">Favorite Movies</string>
     <string name="daily_reminder">Daily Reminder</string>
-    <string name="daily_reminder_msg">Comeback to the app!</string>
+    <string name="daily_reminder_msg">Catalogue Movie is missing you!</string>
 
     <string name="release_today_reminder">Release Today Reminder</string>
     <string name="release_today_reminder_msg">has been released today!</string>

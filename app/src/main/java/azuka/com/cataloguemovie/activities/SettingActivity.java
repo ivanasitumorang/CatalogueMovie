@@ -1,7 +1,9 @@
 package azuka.com.cataloguemovie.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -13,13 +15,17 @@ import azuka.com.cataloguemovie.reminder.DailyReminder;
 import azuka.com.cataloguemovie.reminder.ReleaseTodayReminder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-import static azuka.com.cataloguemovie.constants.Strings.TIME;
+import static azuka.com.cataloguemovie.constants.Strings.TIME_DAILY;
+import static azuka.com.cataloguemovie.constants.Strings.TIME_RELEASE;
 
 public class SettingActivity extends AppCompatActivity {
 
-    @BindView(R.id.tb_daily_reminder) ToggleButton tbDailyReminder;
-    @BindView(R.id.tb_release_today_reminder) ToggleButton tbReleaseTodayReminder;
+    @BindView(R.id.tb_daily_reminder)
+    ToggleButton tbDailyReminder;
+    @BindView(R.id.tb_release_today_reminder)
+    ToggleButton tbReleaseTodayReminder;
     private DailyReminder dailyReminder;
     private ReleaseTodayReminder releaseTodayReminder;
     private AppPreference appPreference;
@@ -39,10 +45,12 @@ public class SettingActivity extends AppCompatActivity {
         tbDailyReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                appPreference.setDailyReminder(isChecked, TIME);
-                if (isChecked){
-                    dailyReminder.startReminder(SettingActivity.this, TIME);
+                appPreference.setDailyReminder(isChecked, TIME_DAILY);
+                if (isChecked) {
+                    tbDailyReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_light));
+                    dailyReminder.startReminder(SettingActivity.this, TIME_DAILY);
                 } else {
+                    tbDailyReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_dark));
                     dailyReminder.stopReminder(SettingActivity.this);
                 }
             }
@@ -51,10 +59,12 @@ public class SettingActivity extends AppCompatActivity {
         tbReleaseTodayReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                appPreference.setReleaseTodayReminder(isChecked, TIME);
-                if (isChecked){
-                    releaseTodayReminder.startReminder(SettingActivity.this, TIME);
+                appPreference.setReleaseTodayReminder(isChecked, TIME_RELEASE);
+                if (isChecked) {
+                    tbReleaseTodayReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_light));
+                    releaseTodayReminder.startReminder(SettingActivity.this, TIME_RELEASE);
                 } else {
+                    tbReleaseTodayReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_dark));
                     releaseTodayReminder.stopReminder(SettingActivity.this);
                 }
             }
@@ -63,7 +73,17 @@ public class SettingActivity extends AppCompatActivity {
 
     private void loadPreference() {
         tbDailyReminder.setChecked(appPreference.getDailyReminder());
+        if (appPreference.getDailyReminder()){
+            tbDailyReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_light));
+        } else {
+            tbDailyReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_dark));
+        }
         tbReleaseTodayReminder.setChecked(appPreference.getReleaseTodayReminder());
+        if (appPreference.getReleaseTodayReminder()){
+            tbReleaseTodayReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_light));
+        } else {
+            tbReleaseTodayReminder.setBackground(getDrawable(R.drawable.bg_oval_pink_dark));
+        }
     }
 
     @Override
@@ -89,4 +109,8 @@ public class SettingActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
+    @OnClick(R.id.btn_change_language)
+    void changeLanguage() {
+        startActivity(new Intent(Settings.ACTION_LOCALE_SETTINGS));
+    }
 }

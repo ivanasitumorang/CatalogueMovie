@@ -61,6 +61,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         setInit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadDetailMovie();
     }
 
@@ -68,6 +73,13 @@ public class MovieDetailActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override
@@ -83,6 +95,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else {
             menu.findItem(R.id.btn_fav).setIcon(R.drawable.ic_heart_outline);
         }
+        menu.findItem(R.id.btn_fav).getIcon().setTint(getResources().getColor(R.color.colorSecondary));
         return super.onPrepareOptionsMenu(menu);
     }
 
